@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hipotünüs</title>
 </head>
+
 <body>
     <h2>Hipotünüs Hesaplama</h2>
-    <input placeholder="1. Kenarı Giriniz" type="text" id="kenar1">
-    <input placeholder="2. Kenarı Giriniz" type="text" id="kenar2">
-    <button id="btn">Hesapla</button>
-    <div id="sonuc"></div>
+        <div>
+            <label for="fname">1.Kenar:</label>
+            <input type="text" id="kenar1"><br><br>
+            <label for="lname">2.Kenar:</label>
+            <input type="text" id="kenar2"><br><br>
+            <button id="btn">Hesapla</button><br><br>
+        </div>
+        <div id="sonuc"></div>
+
     <script>
-        function Hesapla(){
-            var k1=Number(document.getElementById("kenar1").value);
-            var k2=Number(document.getElementById("kenar2").value);
-            var hipotünüs = Math.sqrt((k1*k1)+(k2*k2));
+        function Hesapla() {
+            var k1 = Number(document.getElementById("kenar1").value);
+            var k2 = Number(document.getElementById("kenar2").value);
+            var hipotünüs = Math.sqrt((k1 * k1) + (k2 * k2)).toFixed(2);
             document.getElementById("sonuc").innerHTML = "Hipotünüs: " + hipotünüs;
         }
         var hesapbtn = document.getElementById("btn");
-        hesapbtn.onclick=Hesapla;
+        hesapbtn.onclick = Hesapla;
+
     </script>
+    <style>
+        body {
+            margin-left: 15%;
+        }
+        #icKutu{
+            float: left;
+            margin-right: 20px;
+        }
+    </style>
 </body>
+
 </html>
