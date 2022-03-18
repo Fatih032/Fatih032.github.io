@@ -8,12 +8,21 @@
    <link rel="stylesheet" href="OriClock.css">
    
 </head>
-<body>
+<body id="body">
+
+    <div>
+        <button id="arkaplan" onclick="colorChange()">Arka Plan</button>
+        <input type="color" id="renk">
+    </div>
+    <div>
+        <button id="saat" onclick="saatRenk()">Saat</button>
+        <input type="color" id="saatRenk" default="white">
+    </div>
     <div class="clock">
         <div id="hour">00</div>
-        <span>:</span>
+        <span id="span1">:</span>
         <div id="minute">00</div>
-        <span>:</span>
+        <span id="span2">:</span>
         <div id="seconds">00</div>
     </div>
     <audio id="sonbes">
