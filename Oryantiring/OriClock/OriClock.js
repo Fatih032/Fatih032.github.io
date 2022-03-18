@@ -22,20 +22,16 @@ var clock = setInterval(
             sec = "0" + sec;
         }
         if (sec >= 55) {
-            document.getElementById("sonbes").play()
+            document.getElementById("sonbes").play();
         }
         if (sec == 0) {
-            document.getElementById("cikis").play()
+            document.getElementById("cikis").play();
         }
         hour.textContent = hr;
         minute.textContent = min;
         seconds.textContent = sec;
     }, 1000
 );
-// $('#arkaplan').click(function () {
-//     var secilenrenk = $("#renk").val();
-//     $(".body").css("background", secilenrenk);
-//     });
 function colorChange(){
     let secilenrenk = document.getElementById("renk").value;
     document.body.style.backgroundColor = secilenrenk;
