@@ -58,6 +58,21 @@ function sayi0() {
     ekran.value += sayi0;
 }
 
+function e() {
+    var ekran = document.getElementById("ekran");
+    ekran.value += "2.718281";
+}
+
+function nokta() {
+    var ekran = document.getElementById("ekran");
+    ekran.value += ".";
+}
+
+function mod() {
+    var ekran = document.getElementById("ekran");
+    ekran.value += "%";
+}
+
 function topla() {
     var ekran = document.getElementById("ekran");
     ekran.value += "+";
@@ -70,7 +85,7 @@ function cikar() {
 
 function carp() {
     var ekran = document.getElementById("ekran");
-    ekran.value += "*";
+    ekran.value += "x";
 }
 
 function bol() {
@@ -130,9 +145,28 @@ function esittir() {
         value1 = ekran.value.substring(0,üssü);
         value2 = ekran.value.substring(üssü+1,ekran.value.length);
         ekran.value = Math.pow(value1, value2).toFixed(2);
+    } else if (ekran.value.includes("!")) {
+        value = ekran.value.substring(0,ekran.value.length-1);
+        ekran.value = fact(value);
+    } else if (ekran.value.includes("x")){
+        ekran.value = eval(ekran.value.replace("x", "*"));
     } else {
         ekran.value = eval(ekran.value);
     }
+}
+
+function fact(value) {
+    if (value == 0) {
+        return 1;
+    } else {
+        return value * fact(value-1);
+    }
+}
+
+function faktoriyel() {
+    var ekran = document.getElementById("ekran");
+    ekran.value += "!";
+
 }
 
 function ln() {
@@ -145,9 +179,9 @@ function log() {
     ekran.value += "log(";
 }
 
-function sqrt() {
+function kok() {
     var ekran = document.getElementById("ekran");
-    ekran.value += document.getElementById("sqrt").value;
+    ekran.value += document.getElementById("kok").value;
 }
 
 function üssü() {
@@ -189,3 +223,24 @@ function parantezsag() {
     var ekran = document.getElementById("ekran");
     ekran.value += ")";
 }
+
+function kare() {
+    var ekran = document.getElementById("ekran");
+    ekran.value += "^2";
+}
+
+function kup() {
+    var ekran = document.getElementById("ekran");
+    ekran.value += "^3";
+}
+
+function üst() {
+    var ekran = document.getElementById("ekran");
+    ekran.value += "^";
+}
+
+function pi() {
+    var ekran = document.getElementById("ekran");
+    ekran.value += (Math.PI).toFixed(6);
+}
+

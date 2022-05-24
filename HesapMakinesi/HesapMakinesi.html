@@ -1,274 +1,55 @@
 <!DOCTYPE html>
-<html lang="tr">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- bootstrap cdn -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
-    <link rel="stylesheet" href="hesapmakinesi.css">
-    <script src="hesapmakinesi.js"></script>
-
     <title>Hesap Makinesi</title>
-</head>
+    <link rel="stylesheet" href="hesapmakinesi.css">
 
+</head>
 <body>
 
-    <div class="container">
-
-    <!-- hesap makinesi -->
-    <div id="çerceve">
-        <div class="col-md-4">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <h2>Hesap Makinesi</h2>
-                </div>
-            </div>
-        </div>
-        <div >
-            <div class="col-md-12">
-                <div class="form-group">
-                    <input style="width: 300px ;" type="text" class="form-control" id="ekran" placeholder="">
-                </div>
-            </div>
-        </div>
-        <div >
-        <div class="row" style="margin-left: 10px; ">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button id="bir" type="button" class="btn btn-primary" value="1" onclick="sayi1()">1</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 10px; ">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button onclick="sayi2()" value="2" type="button" class="btn btn-primary" id="iki">2</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 10px; ">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button onclick="sayi3()" type="button" value="3" class="btn btn-primary" id="uc">3</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row"        style="margin-left: 10px; ">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button onclick="sin()" type="button" value="4" class="btn btn-primary" id="sin">Sin</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 10px; ">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button onclick="parantezsol()" type="button" value="5" class="btn btn-primary" id="parantezsol">(</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 10px; ">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button onclick="parantezsag()" type="button" value="6" class="btn btn-primary" id="parantezsag">)</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div >
-            <div class="row" style="margin-left: 10px; ">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="sayi4()" value="4" type="button" class="btn btn-primary"
-                                id="dort">4</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="sayi5()" value="5" type="button" class="btn btn-primary"
-                                id="bes">5</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="sayi6()" value="6" type="button" class="btn btn-primary"
-                                id="alti">6</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="cos()" type="button" class="btn btn-primary"
-                                id="cos">Cos</button>
-                        </div>
-                    </div>
-            </div>
-            <div class="row" style="margin-left: 10px; ">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button onclick="log()" type="button" class="btn btn-primary"
-                            id="log">log</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 10px; ">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button value="&Sqrt;" onclick="sqrt()" type="button" class="btn btn-primary"
-                            id="sqrt">&Sqrt;</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row" style="margin-left: 10px; ">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="sayi7()" value="7" type="button" class="btn btn-primary"
-                                id="yedi">7</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="sayi8()" value="8" type="button" class="btn btn-primary"
-                                id="sekiz">8</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="sayi9()" value="9" type="button" class="btn btn-primary"
-                                id="dokuz">9</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="tan()" type="button" class="btn btn-primary"
-                                id="tan">tan</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="üssü()" type="button" class="btn btn-primary"
-                                id="üssü">^</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="ln()" type="button" class="btn btn-primary"
-                                id="ln">ln</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 10px; ">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="sayi0()" value="0" type="button" class="btn btn-primary"
-                                id="sifir">0</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="esittir()" type="button" class="btn btn-primary" id="esittir">=</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 8px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="topla()" value="+" type="button" class="btn btn-primary"
-                                id="topla">+</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="cot()" type="button" class="btn btn-primary"
-                                id="cot">Cot</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 12px; ">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="cikar()" type="button" class="btn btn-primary" id="cikar">-</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="carp()" type="button" class="btn btn-primary" id="carp">*</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 12px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="bol()" type="button" class="btn btn-primary" id="bol">/</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 12px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="ttsil()" type="button" class="btn btn-primary" id="bol">Sil</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 10px; ">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button onclick="sil()" type="button" class="btn btn-primary" id="sil">C</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-left: 10px; ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary" onclick="esittir()">Hesapla</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="calculator">
+        <input type="text" value="" id="ekran" class="calculator-input">
+        <div class="calculator-keys">
+            <button onclick="sil()" class="sil">AC</button>
+            <button onclick="topla()" id="topla" class="operator">+</button>
+            <button onclick="cikar()" id="eksi" class="operator">-</button>
+            <button onclick="carp()" id="çarp" class="operator">x</button>
+            <button onclick="bol()" id="böl" class="operator">/</button>
+            <button onclick="mod()" id="mod" class="operator">%</button>
+            <button onclick="sayi1()" id="bir" value="1">1</button>
+            <button onclick="sayi2()" id="iki" value="2">2</button>
+            <button onclick="sayi3()" id="uc" value="3">3</button>
+            <button onclick="sin()" id="sin" value="sin(">sin</button>
+            <button onclick="kok()" id="kok" value="√">√</button>
+            <button onclick="sayi4()" id="dort" value="4">4</button>
+            <button onclick="sayi5()" id="bes" value="5">5</button>
+            <button onclick="sayi6()" id="alti" value="6">6</button>
+            <button onclick="cos()" id="cos" value="cos">cos</button>
+            <button onclick="faktoriyel()" id="faktöriyel" value="!">!</button>
+            <button onclick="sayi7()" id="yedi" value="7">7</button>
+            <button onclick="sayi8()" id="sekiz" value="8">8</button>
+            <button onclick="sayi9()" id="dokuz" value="9">9</button> 
+            <button onclick="tan()" id="tan" value="tan">tan</button>
+            <button onclick="ln()" id="ln" value="ln">ln</button> 
+            <button onclick="pi()" id="pi" value="pi">pi</button>
+            <button onclick="sayi0()" id="sifir" value="0">0</button>
+            <button onclick="e()" id="e" value="e">e</button>
+            <button onclick="cot()" id="cot" value="cot">cot</button>
+            <button onclick="log()" id="log" value="log">log</button>
+            <button onclick="kare()" id="kare" value="^2">x^2</button>
+            <button onclick="kup()" id="küp" value="^3">x^3</button>
+            <button onclick="üst()" id="üst" value="">x^y</button>
+            <button onclick="ttsil()" id="sil" value="sil">&#x232B;</button>
+            <button onclick="parantezsol()" id="solparantez" value="(">(</button>
+            <button onclick="parantezsag()" id="sağparantez" value=")">)</button>
+            <button onclick="nokta()" id="nokta" value=".">.</button>
+            <button onclick="esittir()" class="esittir" id="esittir" value="=">=</button>
+        
     </div>
-</div>
-</div>
 
-
-
-
+    <script src="hesapmakinesi.js"></script>
 </body>
-
 </html>
