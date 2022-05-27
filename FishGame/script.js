@@ -5,7 +5,7 @@ canvas.width = 800;
 canvas.height = 600;
 let score = 0;
 let gameFrame = 0;
-ctx.font = "50px Georgia";
+ctx.font = "40px Georgia";
 let gameSpeed = 2;
 let gameOver = false;
 
@@ -255,7 +255,7 @@ class Enemy{
 function handleGameOver() {
     ctx.fillStyle = "white";
     ctx.fillText('Oyun bitti, Skorun: ' + score, 130, 250);
-    ctx.fillText("Yeniden başlamak için r'ye basınız...", 130, 300);
+    ctx.fillText("Yeniden başlamak için r tuşuna basınız...", 30, 300);
     gameOver = true;
 }
 
