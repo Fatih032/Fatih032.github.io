@@ -32,13 +32,15 @@ var clock = setInterval(
         seconds.textContent = sec;
     }, 1000
 );
-function colorChange(){
+function arkaplan(){
     let secilenrenk = document.getElementById("renk").value;
     document.body.style.backgroundColor = secilenrenk;
+    document.fullscreenElement.style.backgroundColor = secilenrenk;
     document.querySelector("#hour").style.backgroundColor = secilenrenk;
     document.querySelector("#minute").style.backgroundColor = secilenrenk;
     document.querySelector("#seconds").style.backgroundColor = secilenrenk;
 }
+
 function saatRenk(){
     let saatRenk = document.getElementById("saatRenk").value;
     document.querySelector("#hour").style.color = saatRenk;
@@ -47,3 +49,17 @@ function saatRenk(){
     document.querySelector("#span1").style.color = saatRenk;
     document.querySelector("#span2").style.color = saatRenk;
 }
+
+full = false;
+function btnClicked(){
+    let fullscreen = document.getElementById("root");
+    if(full == false){
+        fullscreen.requestFullscreen();
+        full = true;
+    }
+    else{
+        document.exitFullscreen();
+        full = false;
+    }
+}
+
