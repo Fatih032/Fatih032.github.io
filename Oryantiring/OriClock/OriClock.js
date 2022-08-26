@@ -35,7 +35,6 @@ var clock = setInterval(
 function arkaplan(){
     let secilenrenk = document.getElementById("renk").value;
     document.body.style.backgroundColor = secilenrenk;
-/*     document.fullscreenElement.style.backgroundColor = secilenrenk; */
     document.querySelector("#hour").style.backgroundColor = secilenrenk;
     document.querySelector("#minute").style.backgroundColor = secilenrenk;
     document.querySelector("#seconds").style.backgroundColor = secilenrenk;
@@ -56,6 +55,7 @@ function btnClicked(){
     if(full == false){
         fullscreen.requestFullscreen();
         full = true;
+        document.body.fullscreenElement.style.backgroundColor = secilenrenk;
     }
     else{
         document.exitFullscreen();

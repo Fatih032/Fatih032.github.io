@@ -9,7 +9,7 @@ body{
     height: 100vh;
     background:#000000;
 }
-.clock{
+#clock{
     width: 700px;
     height: 200px;
     position: absolute;
@@ -24,9 +24,9 @@ body{
     font-family:'digital-clock-font';
     src: url('digital-font/digital-7.ttf');
 }
-.clock div{
+#clock div{
     position: relative;
-    background-color: #000000;
+    background-color: rgb(0, 0, 0);
     height: 100%;
     width: 150px;
     display: flex;
@@ -38,7 +38,7 @@ body{
     color: #ffffff;
     letter-spacing: 3px;
 }
-.clock span{
+#clock span{
     font-weight: bolder;
     font-size: 200px;
     color: #ffffff;
@@ -104,7 +104,7 @@ body{
     padding: 0.7em 1.7em;
     font-size: 18px;
     border-radius: 0.5em;
-    background: #e8e8e8;
+    background: #721010;
     border: 1px solid #e8e8e8;
     transition: all .3s;
     box-shadow: 6px 6px 12px #c5c5c5,
