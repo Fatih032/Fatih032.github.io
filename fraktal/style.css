@@ -1,0 +1,14 @@
+* { 
+    padding: 0;
+    margin: 0;
+}
+
+.fraktal {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    background-color: blue;
+    margin-top: 200px; 
+    margin-left: 150px;
+}
