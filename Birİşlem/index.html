@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Bir İşlem</title>
+</head>
+<body>
+
+    <!-- 5 tane sayının olduğu alan -->
+    <div>
+        <!-- hedef 100 ile 1000 rasgele bir sayı -->
+        <div class="sayılar" id="hedef" >0</div>
+
+        <div class="sayılar" value="80" id="süre">Süre:120</div>
+
+        <!-- ilk 4 sayı 1 - 20 arasında rasgele bir sayı -->
+        <button onclick="sayıbir()" class="sayılar" id="sayı">0</button>
+        <button onclick="sayıiki()" class="sayılar" id="sayı1">0</button>
+        <button onclick="sayıüç()" class="sayılar" id="sayı2">0</button>
+        <button onclick="sayıdört()" class="sayılar" id="sayı3">0</button>
+        <button onclick="sayıbeş()" class="sayılar" id="sayı4">0</button>
+        <!-- 50 ile 100 arasında rasgele bir sayı -->
+        <button onclick="sayıaltı()" class="sayılar" id="sayı5">00</button>
+ 
+        <button onclick="boşsayıbir()" class="sayılar" id="boşsayı1"></button>
+
+        <!-- 5 tane işlem -->
+        <button onclick="topla()" class="işlemler" id="topla">+</button>
+        <button onclick="çıkar()" class="işlemler" id="çıkar">-</button>
+        <button onclick="çarp()" class="işlemler" id="çarp">x</button>
+        <button onclick="böl()" class="işlemler" id="böl">/</button>
+        <button onclick="eşittir()" class="işlemler" id="eşittir">=</button>
+        <button onclick="sil()" class="işlemler" id="sil">Sil</button>
+        <button onclick="tsil()" class="işlemler" id="tsil">C</button>
+
+        <input class="sayılar" id="sonuç" value="">
+        <button onclick="bekletfonk()" class="sayılar" id="beklet">Beklet</button>
+
+    </div>
+
+    <!-- başla butonu -->
+    <button onclick="başla()" id="başla">Başla</button>
+
+
+    
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+* {
+    margin : 0;
+    padding : 0;
+    box-sizing : border-box;
+}
+
+/* Kutucuk arkaplan krem renginde olacak */
+.sayılar {
+    background-color : #f6ffa9;
+    padding : 10px;
+    border-radius : 5px;
+    width : 100px;
+    height : 100px;
+    display : flex;
+    float: left;
+    justify-content : center;
+    align-items : center;
+    font-size : 50px;
+    font-weight : bold;
+    color : #333;
+    margin-right : 20px;
+}
+.işlemler {
+    background-color : #f6ffa9;
+    padding : 10px;
+    border-radius : 5px;
+    width : 100px;
+    height : 100px;
+    display : flex;
+    float: left;
+    justify-content : center;
+    align-items : center;
+    font-size : 50px;
+    font-weight : bold;
+    color : #333;
+    margin-top: 20px;
+    margin-right : 20px;
+}
+
+#hedef {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: red;
+    float: left;
+    height: 150px;
+    width: 300px;
+    margin-left: 150px;
+}
+
+#sonuç {
+    background-color: green;
+    height: 100px;
+    width: 300px;
+    margin-left: 150px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#süre {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(14, 255, 183);
+    float: none;
+    height: 150px;
+    width: 300px;
+    margin-left: 150px;
+}
+#sayı, #topla {
+    margin-left: 150px;
+}
+#boşsayı1, #tsil {
+    float: none;
+}
+#beklet {
+    margin-top: 20px;
+    font-size: 30px;
+}
+
+
+
+/* başla butonu */
+#başla {
+    background-color : #f6ffa9;
+    padding : 10px;
+    border-radius : 5px;
+    width : 100px;
+    height : 100px;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    font-size : 30px;
+    float: none;
+    font-weight : bold;
+    color : #333;
+    margin-left : 150px;
+    margin-top : 20px;
+}
