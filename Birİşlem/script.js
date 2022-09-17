@@ -9,6 +9,8 @@ let sayı5 = document.getElementById("sayı5");
 let sonuç = document.getElementById("sonuç");
 let beklet = document.getElementById("beklet");
 let boşsayı1 = document.getElementById("boşsayı1")
+let boşsayı2 = document.getElementById("boşsayı2")
+
 
 /* hedef 100 - 1000 arasında rasgele bir sayı */
 hedef = Math.floor(Math.random() * 900) + 100;
@@ -82,6 +84,11 @@ function boşsayıbir() {
     document.getElementById("boşsayı1").disabled = true;
 }
 
+function boşsayıiki() {
+    sonuç.value += boşsayı2;
+    document.getElementById("boşsayı2").disabled = true;
+}
+
 function topla() {
     sonuç.value += "+";
 }
@@ -111,10 +118,17 @@ function sil() {
 }
 
 function bekletfonk() {
-    boşsayı1 = sonuç.value;
-    sonuç.value = "";
-    document.getElementById("boşsayı1").innerHTML = boşsayı1;
-    document.getElementById("boşsayı1").disabled = false;
+    if ( boşsayı1.value == "" || document.getElementById('boşsayı1').disabled == true ) {
+        boşsayı1 = sonuç.value;
+        sonuç.value = "";
+        document.getElementById("boşsayı1").innerHTML = boşsayı1;
+        document.getElementById("boşsayı1").disabled = false;
+    } else {
+        boşsayı2 = sonuç.value;
+        sonuç.value = "";
+        document.getElementById("boşsayı2").innerHTML = boşsayı2;
+        document.getElementById("boşsayı2").disabled = false;
+    }
 }
 
 
