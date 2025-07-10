@@ -8,7 +8,7 @@ body {
     --button-text: white;
     --button-bg-hover: #9f8b77;
     --tile-text: #f9f6f2;
-    --accent-color: #f67c5f;
+    --accent-color: #e74c3c; /* Seçim rengini belirgin bir kırmızı yaptık */
 
     font-family: Arial, sans-serif;
     background-color: var(--bg-color);
@@ -130,7 +130,8 @@ h1 {
 
 .cell.selected {
     /* !important, diğer tile-N arkaplan renklerini ezmek için kullanılır */
-    background-color: var(--accent-color) !important; 
+    background-color: var(--accent-color) !important;
+    color: var(--tile-text) !important; /* Seçili kutudaki sayının rengini de tutarlı hale getirir */
     transform: scale(1.1);
     border: 2px solid var(--tile-text);
 }
@@ -140,14 +141,15 @@ h1 {
 .tile-2 { background-color: #eee4da; color: var(--text-color); }
 .tile-4 { background-color: #ede0c8; color: var(--text-color); }
 .tile-8 { background-color: #f2b179; }
-.tile-16 { background-color: #f59563; }
-.tile-32 { background-color: #f67c5f; }
-.tile-64 { background-color: #f65e3b; }
-.tile-128 { background-color: #edcf72; }
-.tile-256 { background-color: #edcc61; }
-.tile-512 { background-color: #edc850; }
-.tile-1024 { background-color: #edc53f; }
-.tile-2048 { background-color: #edc22e; }
+/* Sayılar için daha belirgin ve farklı ana renkler */
+.tile-16 { background-color: #f1c40f; } /* Sarı */
+.tile-32 { background-color: #2ecc71; } /* Yeşil */
+.tile-64 { background-color: #1abc9c; } /* Turkuaz */
+.tile-128 { background-color: #3498db; } /* Mavi */
+.tile-256 { background-color: #9b59b6; } /* Mor */
+.tile-512 { background-color: #d35400; } /* Koyu Turuncu */
+.tile-1024 { background-color: #2980b9; } /* Koyu Mavi */
+.tile-2048 { background-color: #34495e; } /* Koyu Gri (Özel Renk) */
 
 /* Oyun Bitti Ekranı */
 #game-over {
