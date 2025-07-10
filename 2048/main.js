@@ -8,6 +8,7 @@ function runApp() {
     const undoButton = document.getElementById('undo-button');
     const restartButton = document.getElementById('restart-button');
     const mainRestartButton = document.getElementById('restart-button-main');
+    const toggleSoundButton = document.getElementById('toggle-sound-button');
     const difficultyButtons = document.querySelectorAll('.difficulty-btn');
 
     // Zorluk seviyeleri için ayarlar
@@ -17,10 +18,16 @@ function runApp() {
         hard: { rows: 5, cols: 4 }    // Zor: En küçük alan
     };
     let currentDifficulty = 'medium'; // Varsayılan zorluk
+
+    // Nota seslerini bir diziye yükle
+    const noteNames = ['do', 're', 'mi', 'fa', 'sol', 'la', 'si', 'dooct'];
+    const scaleSounds = noteNames.map(note => document.getElementById(`sound-${note}`));
+
     let COLS = DIFFICULTY_SETTINGS[currentDifficulty].cols;
     let ROWS = DIFFICULTY_SETTINGS[currentDifficulty].rows;
 
     const INITIAL_TILES = [2, 4, 8, 16, 32, 64, 128];
+    const MUTE_KEY = 'sayi-birlestirme-is-muted';
 
     const HIGH_SCORE_KEY = 'sayi-birlestirme-en-yuksek-skor';
     let board = [];
@@ -29,6 +36,7 @@ function runApp() {
     let history = [];
     let cellSize = 80; // Varsayılan hücre boyutu, dinamik olarak ayarlanacak
     let highScore = 0;
+    let isMuted = false;
     let isDragging = false;
     let selectionPath = [];
     let startValue = 0;
@@ -55,6 +63,10 @@ function runApp() {
         const storedHighScore = localStorage.getItem(HIGH_SCORE_KEY);
         highScore = storedHighScore ? parseInt(storedHighScore, 10) : 0;
         highScoreDisplay.textContent = highScore;
+
+        // Ses durumunu localStorage'dan yükle
+        isMuted = localStorage.getItem(MUTE_KEY) === 'true';
+        updateSoundButtonState();
 
         // Tahtayı oluştur ve rastgele sayılarla doldur
         board = Array(ROWS).fill(null).map(() =>
@@ -152,6 +164,28 @@ function runApp() {
         // Anlık toplamı güncelle
         const newSum = pathSum + hoveredTileValue;
         selectionInfoDisplay.textContent = `→ ${floorToPowerOfTwo(newSum)}`;
+
+        // YENİ MÜZİKAL SES MANTIĞI (PİNG-PONG EFEKTİ)
+        // Zincir uzadıkça notalar yükselir, sonra tekrar alçalır.
+        if (scaleSounds.length > 0 && scaleSounds.some(s => s)) {
+            const step = selectionPath.length - 2;
+            const numNotes = scaleSounds.length;
+
+            if (numNotes > 1) {
+                const cycleLength = (numNotes - 1) * 2;
+                const cycleStep = step % cycleLength;
+                let soundIndex;
+
+                if (cycleStep < numNotes) {
+                    soundIndex = cycleStep; // Melodi yukarı çıkıyor
+                } else {
+                    soundIndex = cycleLength - cycleStep; // Melodi aşağı iniyor
+                }
+                playSound(scaleSounds[soundIndex]);
+            } else if (step === 0) {
+                playSound(scaleSounds[0]); // Sadece bir ses varsa onu çal
+            }
+        }
     }
 
     async function handleMouseUp() {
@@ -214,6 +248,12 @@ function runApp() {
         await sleep(300);
         mergedCell.classList.remove('merged');
 
+        // YENİ EKLENEN BÖLÜM: 5'li birleştirme bonusu
+        // Eğer 5 veya daha fazla hücre birleştirildiyse bonusu tetikle
+        if (selectionPath.length >= 5) {
+            await findAndRemoveSmallestTile();
+        }
+
         // Yerçekimi ve doldurma işlemleri
         await applyGravity();
         await refillBoard();
@@ -264,6 +304,70 @@ function runApp() {
 
 
     // --- Diğer Yardımcı Fonksiyonlar ---
+
+    /**
+     * Verilen ses elementini çalar.
+     * @param {HTMLAudioElement} soundElement Çalınacak ses.
+     */
+    function playSound(soundElement) {
+        if (isMuted) return; // Eğer ses kapalıysa, fonksiyonu hemen terk et
+        if (soundElement) {
+            soundElement.currentTime = 0; // Sesi başa sar, tekrar tekrar çalınabilmesi için
+            soundElement.play().catch(error => console.error("Ses çalma hatası:", error));
+        }
+    }
+
+    function toggleSound() {
+        isMuted = !isMuted;
+        localStorage.setItem(MUTE_KEY, isMuted);
+        updateSoundButtonState();
+    }
+
+    function updateSoundButtonState() {
+        if (!toggleSoundButton) return;
+        // Butonun içeriğini ses durumuna göre güncelle (emoji ikonları)
+        toggleSoundButton.textContent = isMuted ? '🔇' : '🔊';
+    }
+
+    /**
+     * Tahtadaki en küçük değerli taşı bulur, onu kaldırır ve kullanıcıya bir mesaj gösterir.
+     */
+    async function findAndRemoveSmallestTile() {
+        let minVal = Infinity;
+
+        // 1. Tahtadaki en küçük değeri bul (0'dan büyük)
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (board[r][c] > 0 && board[r][c] < minVal) {
+                    minVal = board[r][c];
+                }
+            }
+        }
+
+        // Eğer tahta boş değilse ve en küçük bir değer bulunduysa
+        if (minVal !== Infinity) {
+            const tilesToRemove = [];
+            // 2. Bu en küçük değere sahip tüm hücrelerin konumlarını bul
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    if (board[r][c] === minVal) {
+                        tilesToRemove.push({ r, c });
+                    }
+                }
+            }
+
+            // 3. Bulunan tüm hücreleri animasyonla kaldır
+            for (const pos of tilesToRemove) {
+                const cellElement = document.querySelector(`.cell[data-row='${pos.r}'][data-col='${pos.c}']`);
+                if (cellElement) {
+                    cellElement.classList.add('tile-fade-out');
+                }
+                board[pos.r][pos.c] = 0; // Mantıksal olarak hemen kaldır
+            }
+
+            await sleep(300); // Animasyonun bitmesini bekle
+        }
+    }
 
     function handleUndo() {
         if (history.length === 0 || isProcessing) return;
@@ -410,6 +514,7 @@ function runApp() {
     restartButton.addEventListener('click', init);
     undoButton.addEventListener('click', handleUndo);
     mainRestartButton.addEventListener('click', init);
+    toggleSoundButton.addEventListener('click', toggleSound);
     window.addEventListener('resize', resizeGame);
 
     // Oyunu başlat

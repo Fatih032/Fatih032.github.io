@@ -35,8 +35,11 @@
             <div>En Yüksek: <span id="high-score">0</span></div>
         </div>
         <div class="game-controls">
-            <button id="undo-button" disabled>Geri Al</button>
-            <button id="restart-button-main">Yeniden Başla</button>
+            <div class="control-buttons">
+                <button id="undo-button" class="btn" disabled>Geri Al</button>
+                <button id="restart-button-main" class="btn">Yeniden Başla</button>
+                <button id="toggle-sound-button" class="btn">🔊</button>
+            </div>
             <div id="selection-info"></div>
         </div>
     </div>
@@ -48,6 +51,18 @@
         <p>Skorunuz: <span id="final-score">0</span></p>
         <button id="restart-button">Yeniden Başla</button>
     </div>
+
+    <!-- Ses efektleri için gizli audio elementleri -->
+    <!-- <audio id="merge-sound" src="sounds/merge.wav" preload="auto"></audio> -->
+    <audio id="sound-do" src="sounds/do.wav" preload="auto"></audio>
+    <audio id="sound-re" src="sounds/re.wav" preload="auto"></audio>
+    <audio id="sound-mi" src="sounds/mi.wav" preload="auto"></audio>
+    <audio id="sound-fa" src="sounds/fa.wav" preload="auto"></audio>
+    <audio id="sound-sol" src="sounds/sol.wav" preload="auto"></audio>
+    <audio id="sound-la" src="sounds/la.wav" preload="auto"></audio>
+    <audio id="sound-si" src="sounds/si.wav" preload="auto"></audio>
+    <audio id="sound-dooct" src="sounds/dooct.wav" preload="auto"></audio>
+    <!-- Daha uzun zincirler için buraya ek sesler ekleyebilirsiniz -->
 
     <script src="main.js"></script>
 </body>
