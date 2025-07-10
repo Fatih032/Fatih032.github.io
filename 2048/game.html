@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayı Birleştirme Oyunu</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#bbada0"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Sayı Birleştirme</h1>
+
+    <div id="difficulty-selector">
+        <button class="difficulty-btn" data-difficulty="easy">Kolay</button>
+        <button class="difficulty-btn active" data-difficulty="medium">Orta</button>
+        <button class="difficulty-btn" data-difficulty="hard">Zor</button>
+    </div>
+
+    <div class="game-info">
+        <div class="score-container">
+            <div>Skor: <span id="score">0</span></div>
+            <div>En Yüksek: <span id="high-score">0</span></div>
+        </div>
+        <div class="game-controls">
+            <button id="undo-button" disabled>Geri Al</button>
+            <button id="restart-button-main">Yeniden Başla</button>
+            <div id="selection-info"></div>
+        </div>
+    </div>
+
+    <div id="game-board"></div>
+
+    <div id="game-over" class="hidden">
+        <h2>Oyun Bitti!</h2>
+        <p>Skorunuz: <span id="final-score">0</span></p>
+        <button id="restart-button">Yeniden Başla</button>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
