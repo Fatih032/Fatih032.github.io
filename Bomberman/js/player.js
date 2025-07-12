@@ -67,7 +67,8 @@ export function handleKeyDown(e) {
 
     // Tekmeleme Tuşu
     if (e.key === 'v') {
-        e.preventDefault();
+        // Sadece gerçek bir event nesnesi ise preventDefault'u çağır
+        if (e.preventDefault) e.preventDefault();
         // Sadece tekmeleme gücü varsa çalışır
         if (player.canKick) {
             const kickTargetX = player.gridX + player.facingDirection.x;
@@ -87,7 +88,9 @@ export function handleKeyDown(e) {
 
     // Bomba Bırakma Tuşu
     if (e.key === ' ' || e.code === 'Space') {
-        e.preventDefault(); // Sayfanın kaymasını engelle
+        // Sadece gerçek bir event nesnesi ise preventDefault'u çağır
+        // Dokunmatik kontrolden gelen simüle edilmiş event'te bu fonksiyon yoktur.
+        if (e.preventDefault) e.preventDefault();
         placeBomb(player.gridX, player.gridY);
         return;
     }

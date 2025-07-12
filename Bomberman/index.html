@@ -7,27 +7,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-header">
-        <div class="stat-box">
-            <div>SKOR</div>
-            <div id="score">0</div>
+    <div class="game-container">
+        <div class="game-header">
+            <div class="stat-box">
+                <div>SKOR</div>
+                <div id="score">0</div>
+            </div>
+            <div class="stat-box">
+                <div>EN YÜKSEK</div>
+                <div id="high-score">0</div>
+            </div>
+            <h1>Bomberman</h1>
+            <div class="stat-box">
+                <div>SEVİYE</div>
+                <div id="level">1</div>
+            </div>
+            <div class="stat-box">
+                <div>SÜRE</div>
+                <div id="timer">300</div>
+            </div>
         </div>
-        <div class="stat-box">
-            <div>EN YÜKSEK</div>
-            <div id="high-score">0</div>
-        </div>
-        <h1>Bomberman</h1>
-        <div class="stat-box">
-            <div>SEVİYE</div>
-            <div id="level">1</div>
-        </div>
-        <div class="stat-box">
-            <div>SÜRE</div>
-            <div id="timer">300</div>
-        </div>
+        <canvas id="gameCanvas"></canvas>
+        <button id="restartButton" class="hidden">Yeniden Başlat</button>
     </div>
-    <canvas id="gameCanvas"></canvas>
-    <button id="restartButton" class="hidden">Yeniden Başlat</button>
 
     <!-- Dokunmatik Kontroller -->
     <div class="touch-controls">
