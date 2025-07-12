@@ -2,6 +2,7 @@ import { player } from './player.js';
 import { explosions } from './explosion.js';
 import { INITIAL_TIME, TILE_TYPE, SCORE_PER_SECOND, PLAYER_MOVE_COOLDOWN_DEFAULT, PLAYER_MOVE_COOLDOWN_FAST } from './constants.js';
 import { map, resetMap } from './map.js';
+import { bombs } from './bomb.js'; // Zincirleme reaksiyon için bombaları import et
 import { enemies, spawnEnemies } from './enemy.js';
 
 // UI Elements
@@ -61,36 +62,46 @@ function checkPlayerDeath() {
         player.isAlive = false;
     }
 }
- 
-function placeDoor() {
-    // --- TEST İÇİN ---
-    // Kapıyı her zaman (3, 1) konumundaki tuğlanın altına yerleştir.
-    // Not: Harita koordinatları [satır][sütun] şeklindedir.
-    map[3][1] = TILE_TYPE.BRICK_WITH_DOOR;
-}
 
-function placePowerups() {
-    // --- TEST İÇİN ---
-    // Bomba güçlendirmesini (1, 3) konumundaki tuğlanın altına yerleştir.
-    map[1][3] = TILE_TYPE.BRICK_WITH_POWERUP_BOMB;
+const POWERUP_TYPES = [
+    TILE_TYPE.BRICK_WITH_POWERUP_BOMB,
+    TILE_TYPE.BRICK_WITH_POWERUP_FLAME,
+    TILE_TYPE.BRICK_WITH_POWERUP_KICK,
+    TILE_TYPE.BRICK_WITH_POWERUP_BOMB_PASS,
+    TILE_TYPE.BRICK_WITH_POWERUP_SPEED,
+    TILE_TYPE.BRICK_WITH_POWERUP_PIERCE,
+    TILE_TYPE.BRICK_WITH_POWERUP_GHOST
+];
 
-    // Alev güçlendirmesini (3, 2) konumundaki tuğlanın altına yerleştir.
-    map[3][2] = TILE_TYPE.BRICK_WITH_POWERUP_FLAME;
+/**
+ * Kırılabilir duvarların altına rastgele bir kapı ve bir güçlendirme yerleştirir.
+ */
+function placeHiddenItems() {
+    const breakableWallLocations = [];
+    for (let r = 0; r < map.length; r++) {
+        for (let c = 0; c < map[r].length; c++) {
+            if (map[r][c] === TILE_TYPE.BRICK_WALL) {
+                breakableWallLocations.push({ r, c });
+            }
+        }
+    }
 
-    // Tekmeleme güçlendirmesini (1, 4) konumundaki tuğlanın altına yerleştir.
-    map[1][4] = TILE_TYPE.BRICK_WITH_POWERUP_KICK;
+    for (let i = breakableWallLocations.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [breakableWallLocations[i], breakableWallLocations[j]] = [breakableWallLocations[j], breakableWallLocations[i]];
+    }
 
-    // Bomba üzerinden geçme güçlendirmesini (2, 3) konumundaki tuğlanın altına yerleştir.
-    map[2][3] = TILE_TYPE.BRICK_WITH_POWERUP_BOMB_PASS;
+    if (breakableWallLocations.length < 2) {
+        console.warn("Kapı ve güçlendirme saklamak için yeterli kırılabilir duvar yok.");
+        return;
+    }
 
-    // Hız güçlendirmesini (3, 3) konumundaki tuğlanın altına yerleştir.
-    map[3][3] = TILE_TYPE.BRICK_WITH_POWERUP_SPEED;
+    const doorLocation = breakableWallLocations.pop();
+    map[doorLocation.r][doorLocation.c] = TILE_TYPE.BRICK_WITH_DOOR;
 
-    // Delici bomba güçlendirmesini (4, 1) konumundaki tuğlanın altına yerleştir.
-    map[4][1] = TILE_TYPE.BRICK_WITH_POWERUP_PIERCE;
-
-    // Hayalet güçlendirmesini, kalıcı duvarın üzerinden alıp yakındaki bir tuğlaya taşıyalım.
-    map[3][4] = TILE_TYPE.BRICK_WITH_POWERUP_GHOST;
+    const powerupLocation = breakableWallLocations.pop();
+    const randomPowerupType = POWERUP_TYPES[Math.floor(Math.random() * POWERUP_TYPES.length)];
+    map[powerupLocation.r][powerupLocation.c] = randomPowerupType;
 }
 
 function checkPowerupCollection() {
@@ -149,6 +160,27 @@ function drawGameOver(ctx) {
 }
  
 export function updateGame(ctx) {
+    // --- ZİNCİRLEME REAKSİYON MANTIĞI ---
+    // Eğer ekranda bir patlama varsa, bu patlamanın başka bombaları tetikleyip tetiklemediğini kontrol et.
+    const now = performance.now();
+    if (explosions.length > 0) {
+        for (const bomb of bombs) {
+            // Eğer bombanın patlama zamanı zaten geçmişse (yani zaten patlamak üzereyse), bu kontrolü atla.
+            if (bomb.explosionTime <= now) continue;
+
+            // Bombanın, mevcut patlamalardan herhangi birinin etki alanında olup olmadığını kontrol et.
+            const isBombInBlast = explosions.some(exp => 
+                exp.affectedTiles.some(tile => tile.gridX === bomb.gridX && tile.gridY === bomb.gridY)
+            );
+
+            if (isBombInBlast) {
+                // Eğer bomba patlama alanındaysa, patlama zamanını "şimdi" olarak ayarla.
+                // Bu, bir sonraki oyun döngüsünde bombanın patlamasını tetikleyecektir.
+                bomb.explosionTime = now;
+            }
+        }
+    }
+
     if (player.isAlive) {
         checkPlayerDeath();
         checkPowerupCollection();
@@ -161,8 +193,7 @@ export function updateGame(ctx) {
 
 function initGame() {
     resetMap();
-    placeDoor();
-    placePowerups();
+    placeHiddenItems();
     spawnEnemies(level);
 
     player.isAlive = true;
