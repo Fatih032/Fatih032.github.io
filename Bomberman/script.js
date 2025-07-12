@@ -28,6 +28,26 @@ function gameLoop() {
     updateGame(ctx);
 }
 
+function setupTouchControls() {
+    const controls = {
+        'touch-up': 'ArrowUp',
+        'touch-down': 'ArrowDown',
+        'touch-left': 'ArrowLeft',
+        'touch-right': 'ArrowRight',
+        'touch-bomb': ' ' // Space tuşu
+    };
+
+    for (const [buttonId, key] of Object.entries(controls)) {
+        const button = document.getElementById(buttonId);
+        if (button) {
+            button.addEventListener('touchstart', (e) => {
+                e.preventDefault(); // Sayfanın kaymasını veya zoom yapmasını engelle
+                handleKeyDown({ key: key });
+            }, { passive: false });
+        }
+    }
+}
+
 async function main() {
     try {
         console.log("Varlıklar yükleniyor...");
@@ -35,6 +55,7 @@ async function main() {
         console.log("Varlıklar yüklendi. Oyun başlatılıyor.");
         startNewGame();
         setInterval(gameLoop, 1000 / 60);
+        setupTouchControls(); // Dokunmatik kontrolleri ayarla
         window.addEventListener('keydown', handleKeyDown);
     } catch (error) {
         console.error("Oyun başlatılamadı:", error);

@@ -1,9 +1,10 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; dikeyde ortalamayı kaldırıyoruz, içerik sığmazsa kaydırma çubuğu çıksın */
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh; /* height yerine min-height kullanmak mobil uyumluluk için daha iyidir */
+    padding: 10px 0; /* İçeriğin ekranın kenarlarına yapışmasını önler */
     margin: 0;
     background-color: #2c3e50;
     color: white;
@@ -13,13 +14,16 @@ body {
 canvas {
     border: 3px solid #ecf0f1;
     background-color: #34495e;
+    max-width: 100%; /* Canvas'ın ekrandan taşmasını engeller */
+    height: auto; /* Canvas'ın en-boy oranını korur */
 }
 
 .game-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 600px; /* Canvas genişliği ile aynı olmalı */
+    max-width: 600px; /* Maksimum genişliği koru */
+    width: 95%;       /* Ekran genişliğine göre esneklik sağla */
     padding: 10px 20px;
     box-sizing: border-box;
     color: white;
@@ -36,7 +40,8 @@ canvas {
 .stat-box {
     text-align: center;
     font-size: 1.2rem;
-    width: 100px; /* Kutuların genişliğini sabitliyoruz */
+    /* width: 100px; Sabit genişliği kaldırıyoruz */
+    flex: 1; /* Kalan boşluğu statü kutularına eşit dağıt */
 }
 
 #restartButton {
@@ -52,4 +57,89 @@ canvas {
 
 .hidden {
     display: none;
+}
+
+/* Mobil Cihazlar için (640px ve altı) */
+@media (max-width: 640px) {
+    .game-header {
+        flex-wrap: wrap; /* Öğeler sığmazsa alt satıra geçsin */
+        justify-content: center;
+        padding: 10px 5px;
+    }
+
+    .game-header h1 {
+        order: -1; /* Başlığı en üste taşır */
+        width: 100%; /* Başlık tam genişliği kaplar */
+        margin-bottom: 10px;
+        font-size: 1.5rem; /* Başlık fontunu küçült */
+    }
+
+    .stat-box {
+        font-size: 0.9rem; /* Yazı boyutunu küçült */
+        padding: 5px;
+        flex-basis: 45%; /* Her satırda yaklaşık 2 kutu olacak şekilde ayarlar */
+    }
+}
+
+/* Dokunmatik Kontroller */
+.touch-controls {
+    display: none; /* Varsayılan olarak gizli */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    user-select: none; /* Butonlara basarken metin seçilmesini engeller */
+    -webkit-user-select: none; /* Safari için */
+    z-index: 100;
+}
+
+.d-pad {
+    display: grid;
+    grid-template-areas:
+        ". up ."
+        "left . right"
+        ". down .";
+    gap: 10px;
+}
+
+.d-pad button, .action-buttons button {
+    width: 60px;
+    height: 60px;
+    border: 2px solid white;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.action-buttons button {
+    width: 90px;
+    height: 90px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#touch-up { grid-area: up; }
+#touch-left { grid-area: left; }
+#touch-right { grid-area: right; }
+#touch-down { grid-area: down; }
+
+/* Sadece dokunmatik veya küçük ekranlı cihazlarda göster */
+@media (hover: none) and (pointer: coarse), (max-width: 768px) {
+    .touch-controls {
+        display: flex;
+    }
+}
+
+/* Geniş ekranlarda (masaüstü) kontrolleri tamamen gizle */
+@media (min-width: 769px) {
+    .touch-controls {
+        display: none !important;
+    }
 }
