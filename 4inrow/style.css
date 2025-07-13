@@ -68,8 +68,11 @@ h1 {
 .falling-disc {
     position: absolute;
     border-radius: 50%;
-    /* Animasyonun 'top' özelliğini yumuşak bir geçişle değiştirmesini sağlar */
-    transition: top 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045); /* "Yerçekimi" efekti */
+    /* 'transform' animasyonu 'top' animasyonundan daha performanslıdır,
+       özellikle mobil cihazlarda takılmaları önleyebilir. */
+    transition: transform 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045); /* "Yerçekimi" efekti */
+    /* Tarayıcıya bu özelliğin animasyonla değişeceğini bildirerek optimizasyon yapmasını sağlar. */
+    will-change: transform;
 }
 
 /* Kazanan pulları vurgulamak için animasyon */

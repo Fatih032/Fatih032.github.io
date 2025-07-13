@@ -121,17 +121,19 @@ document.addEventListener('DOMContentLoaded', () => {
         disc.style.width = `${cellSize}px`;
         disc.style.height = `${cellSize}px`;
 
-        // Başlangıç pozisyonunu ayarla (tahtanın üstü)
+        // Yatay pozisyonu ve dikey transform için referans noktasını ayarla
         disc.style.left = `${boardPadding + col * cellSlotSize}px`;
-        disc.style.top = `-${cellSlotSize}px`;
+        disc.style.top = `0px`; // 'transform' için referans noktası (tahtanın üstü)
+        // 'transform' ile diski tahtanın görünür alanının üstüne taşı
+        disc.style.transform = `translateY(-${cellSlotSize}px)`;
         gameBoard.appendChild(disc);
 
         // Tarayıcının diski boyamasına izin ver, sonra animasyonu başlat
         await new Promise(resolve => requestAnimationFrame(resolve));
 
-        // Son pozisyonu ayarla ve CSS transition'ını tetikle
+        // 'transform' ile son pozisyonu ayarla ve CSS transition'ını tetikle
         const finalTop = boardPadding + rowToPlace * cellSlotSize;
-        disc.style.top = `${finalTop}px`;
+        disc.style.transform = `translateY(${finalTop}px)`;
 
         // Animasyonun bitmesini bekle
         await new Promise(resolve => {
