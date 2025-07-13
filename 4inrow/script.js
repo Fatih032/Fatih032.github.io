@@ -137,13 +137,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const finalY = targetCellRect.top - boardRect.top;
         disc.style.transform = `translateY(${finalY}px)`;
 
-        // Animasyonun bitmesini bekle
+        // Güvenlik zaman aşımı ile animasyonun bitmesini bekle.
+        // Mobil cihazlarda 'transitionend' olayı bazen tetiklenmeyebilir,
+        // bu da oyunun donmasına neden olur. Bu yapı bunu engeller.
         await new Promise(resolve => {
-            disc.addEventListener('transitionend', () => {
+            const animationDuration = 500; // CSS'teki transition süresi (ms)
+            let animationEnded = false;
+
+            const finishAnimation = () => {
+                if (animationEnded) return; // Fonksiyonun sadece bir kez çalışmasını garantile
+                animationEnded = true;
                 disc.remove(); // Geçici diski kaldır
                 targetCell.classList.add(`player${currentPlayer}`); // Kalıcı hücreyi renklendir
                 resolve();
-            }, { once: true });
+            };
+
+            // Normal durum: Animasyon bittiğinde olayı yakala
+            disc.addEventListener('transitionend', finishAnimation, { once: true });
+            // Güvenlik ağı: Olay tetiklenmezse, süre dolunca manuel olarak bitir
+            setTimeout(finishAnimation, animationDuration + 50);
         });
 
         // --- Oyun Mantığı Bölümü ---
