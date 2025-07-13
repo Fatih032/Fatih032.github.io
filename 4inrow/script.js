@@ -104,43 +104,44 @@ document.addEventListener('DOMContentLoaded', () => {
         // Mantıksal tahtayı hemen güncelle ki AI tekrar aynı yere oynamasın
         board[rowToPlace][col] = currentPlayer;
 
-        // --- Animasyon Bölümü ---
+        // Hedef hücreyi bul
+        const targetCell = document.querySelector(`.cell[data-row='${rowToPlace}'][data-col='${col}']`);
+        if (!targetCell) return; // Güvenlik kontrolü
+
+        // --- Animasyon Bölümü (getBoundingClientRect ile daha sağlam) ---
         const disc = document.createElement('div');
         disc.classList.add('falling-disc', `player${currentPlayer}`);
 
-        // --- Dinamik Animasyon Hesaplamaları ---
-        const firstCell = gameBoard.querySelector('.cell');
-        if (!firstCell) return; // Tahta boşsa devam etme
+        // Konum hesaplamaları için board ve hedef hücrenin boyutlarını al
+        const boardRect = gameBoard.getBoundingClientRect();
+        const targetCellRect = targetCell.getBoundingClientRect();
+        const cellSize = targetCell.offsetWidth;
 
-        const cellSize = firstCell.offsetWidth;
-        const gapSize = parseInt(getComputedStyle(gameBoard).gap);
-        const boardPadding = parseInt(getComputedStyle(gameBoard).paddingLeft);
-        const cellSlotSize = cellSize + gapSize;
-
-        // Düşen diskin boyutunu ayarla
+        // Diskin boyutunu ve başlangıç pozisyonunu ayarla
         disc.style.width = `${cellSize}px`;
         disc.style.height = `${cellSize}px`;
+        // Yatay pozisyon: Hedef hücrenin board'a göre konumu
+        disc.style.left = `${targetCellRect.left - boardRect.left}px`;
+        // Dikey başlangıç pozisyonu (board'un üstü)
+        disc.style.top = '0px';
+        // Transform ile diski görünmez bir başlangıç noktasına taşı
+        disc.style.transform = `translateY(-${cellSize * 2}px)`; // Güvenli bir mesafe yukarıdan başla
 
-        // Yatay pozisyonu ve dikey transform için referans noktasını ayarla
-        disc.style.left = `${boardPadding + col * cellSlotSize}px`;
-        disc.style.top = `0px`; // 'transform' için referans noktası (tahtanın üstü)
-        // 'transform' ile diski tahtanın görünür alanının üstüne taşı
-        disc.style.transform = `translateY(-${cellSlotSize}px)`;
         gameBoard.appendChild(disc);
 
         // Tarayıcının diski boyamasına izin ver, sonra animasyonu başlat
         await new Promise(resolve => requestAnimationFrame(resolve));
 
-        // 'transform' ile son pozisyonu ayarla ve CSS transition'ını tetikle
-        const finalTop = boardPadding + rowToPlace * cellSlotSize;
-        disc.style.transform = `translateY(${finalTop}px)`;
+        // Transform ile son pozisyonu ayarla ve CSS transition'ını tetikle
+        // Son pozisyon: Hedef hücrenin board'a göre dikey konumu
+        const finalY = targetCellRect.top - boardRect.top;
+        disc.style.transform = `translateY(${finalY}px)`;
 
         // Animasyonun bitmesini bekle
         await new Promise(resolve => {
             disc.addEventListener('transitionend', () => {
                 disc.remove(); // Geçici diski kaldır
-                const cell = document.querySelector(`.cell[data-row='${rowToPlace}'][data-col='${col}']`);
-                cell.classList.add(`player${currentPlayer}`); // Kalıcı hücreyi renklendir
+                targetCell.classList.add(`player${currentPlayer}`); // Kalıcı hücreyi renklendir
                 resolve();
             }, { once: true });
         });
