@@ -1,0 +1,197 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #333;
+    font-size: clamp(2rem, 10vw, 3rem); /* Responsive font size */
+}
+
+#scoreboard {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.score-panel {
+    padding: 5px 15px;
+    background-color: #e9e9e9;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    min-width: 120px; /* Panellerin boyutunun sabit kalmasına yardımcı olur */
+}
+
+#status {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    height: 30px; /* Durum metni değiştiğinde zıplamayı önler */
+}
+
+#game-board {
+    display: grid;
+    width: 90vw; /* Use viewport width */
+    max-width: 560px; /* Limit max size on large screens */
+    /* 7 sütun oluştur, her biri eşit genişlikte */
+    grid-template-columns: repeat(7, 1fr); 
+    background-color: #0077be; /* Klasik mavi tahta rengi */
+    border: 5px solid #005a9e;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px; /* Hücreler arası boşluk */
+    position: relative; /* Animasyonlu pulu konumlandırmak için gerekli */
+}
+
+.cell {
+    aspect-ratio: 1 / 1; /* Keep cells square */
+    background-color: #ffffff;
+    border-radius: 50%; /* Daire şekli için */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.cell:hover {
+    background-color: #e0e0e0;
+}
+
+/* Animasyon için kullanılacak geçici pul stili */
+.falling-disc {
+    position: absolute;
+    border-radius: 50%;
+    /* Animasyonun 'top' özelliğini yumuşak bir geçişle değiştirmesini sağlar */
+    transition: top 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045); /* "Yerçekimi" efekti */
+}
+
+/* Kazanan pulları vurgulamak için animasyon */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+.winning-cell {
+    animation: pulse 1.2s infinite;
+}
+
+/* Oyuncu pullarının renkleri */
+.cell.player1,
+.falling-disc.player1 {
+    background-color: #ff4136; /* Kırmızı */
+}
+
+.cell.player2,
+.falling-disc.player2 {
+    background-color: #ffdc00; /* Sarı */
+}
+
+#reset-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #0077be;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#reset-button:hover {
+    background-color: #005a9e;
+}
+
+#controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#difficulty-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* İçindeki elemanlar için daha küçük boşluk */
+}
+
+#controls label {
+    font-size: 1.1em;
+}
+
+#controls select {
+    padding: 5px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* --- Mobil Cihazlar için Media Query --- */
+@media (max-width: 600px) {
+    #controls {
+        flex-direction: column; /* Kontrolleri dikeyde sırala */
+        gap: 10px;
+    }
+}
+
+/* --- Modal Stilleri --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Diğer her şeyin üzerinde olmasını sağlar */
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none; /* Gizliyken tıklanamaz yapar */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.hidden .modal-content {
+    transform: scale(0.7);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.modal-content button {
+    /* Mevcut reset-button stilini kullanabilir veya özelleştirebilirsiniz */
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    background-color: #0077be;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-content button:hover {
+    background-color: #005a9e;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 in a Row</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>4 in a Row</h1>
+    <div id="scoreboard">
+        <div class="score-panel">
+            <span id="player1-label">Oyuncu 1</span>: <span id="player1-score">0</span>
+        </div>
+        <div class="score-panel">
+            <span id="player2-label">Yapay Zeka</span>: <span id="player2-score">0</span>
+        </div>
+    </div>
+    <h2 id="status">Sıra Sizde</h2>
+    <div id="controls">
+        <label for="game-mode">Oyun Modu:</label>
+        <select id="game-mode">
+            <option value="vs-ai">Yapay Zekaya Karşı</option>
+            <option value="vs-human">İki Kişilik</option>
+        </select>
+        <div id="difficulty-container">
+            <label for="difficulty">Zorluk:</label>
+            <select id="difficulty">
+                <option value="kolay">Kolay</option>
+                <option value="orta" selected>Orta</option>
+                <option value="zor">Zor</option>
+            </select>
+        </div>
+        <button id="reset-button">Oyunu Yeniden Başlat</button>
+    </div>
+    <div id="game-board"></div>
+
+    <!-- Oyun Sonu Modal Penceresi -->
+    <div id="end-game-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="modal-message"></h2>
+            <button id="modal-play-again-button">Tekrar Oyna</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
