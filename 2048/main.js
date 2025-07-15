@@ -10,6 +10,9 @@ function runApp() {
     const mainRestartButton = document.getElementById('restart-button-main');
     const toggleSoundButton = document.getElementById('toggle-sound-button');
     const difficultyButtons = document.querySelectorAll('.difficulty-btn');
+    const howToPlayButton = document.getElementById('how-to-play-button');
+    const howToPlayModal = document.getElementById('how-to-play-modal');
+    const closeModalButton = document.querySelector('#how-to-play-modal .close-button');
 
     // Zorluk seviyeleri için ayarlar
     const DIFFICULTY_SETTINGS = {
@@ -516,6 +519,22 @@ function runApp() {
     mainRestartButton.addEventListener('click', init);
     toggleSoundButton.addEventListener('click', toggleSound);
     window.addEventListener('resize', resizeGame);
+
+    // "Nasıl Oynanır?" modalı için olay dinleyicileri
+    howToPlayButton.addEventListener('click', () => {
+        howToPlayModal.classList.remove('hidden');
+    });
+
+    closeModalButton.addEventListener('click', () => {
+        howToPlayModal.classList.add('hidden');
+    });
+
+    // Modal dışına (arka plana) tıklandığında kapatmak için
+    window.addEventListener('click', (event) => {
+        if (event.target == howToPlayModal) {
+            howToPlayModal.classList.add('hidden');
+        }
+    });
 
     // Oyunu başlat
     init();

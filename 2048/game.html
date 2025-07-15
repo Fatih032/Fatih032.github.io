@@ -38,6 +38,7 @@
             <div class="control-buttons">
                 <button id="undo-button" class="btn" disabled>Geri Al</button>
                 <button id="restart-button-main" class="btn">Yeniden Başla</button>
+                <button id="how-to-play-button" class="btn">Nasıl Oynanır?</button>
                 <button id="toggle-sound-button" class="btn">🔊</button>
             </div>
             <div id="selection-info"></div>
@@ -50,6 +51,22 @@
         <h2>Oyun Bitti!</h2>
         <p>Skorunuz: <span id="final-score">0</span></p>
         <button id="restart-button">Yeniden Başla</button>
+    </div>
+
+    <div id="how-to-play-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Nasıl Oynanır?</h2>
+            <p><strong>Amaç:</strong> Mümkün olan en yüksek değerli taşı oluşturmak.</p>
+            <ul>
+                <li><strong>Birleştirme:</strong> Aynı sayıdaki komşu kutucukları birleştirmek için farenizi veya parmağınızı üzerlerinde gezdirin ve bir zincir oluşturun.</li>
+                <li><strong>Seviye Atlama:</strong> Zincirinizdeki sayıların toplamı, 2'nin bir sonraki kuvvetine ulaştığında (ör: 2+2=4), zincire 4 değerli bir komşu kutucuğu da ekleyebilirsiniz.</li>
+                <li><strong>Puanlama:</strong> Her birleştirme sonunda oluşan yeni sayının değeri kadar puan kazanırsınız.</li>
+                <li><strong>Bonus:</strong> Tek seferde 5 veya daha fazla kutucuğu birleştirirseniz, tahtadaki en düşük değerli tüm kutucuklar temizlenir!</li>
+                <li><strong>Oyun Sonu:</strong> Tahtada birleştirilecek komşu kutucuk kalmadığında oyun biter.</li>
+            </ul>
+            <p>İyi eğlenceler!</p>
+        </div>
     </div>
 
     <!-- Ses efektleri için gizli audio elementleri -->
