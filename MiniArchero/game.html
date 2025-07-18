@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mini Archero Oyunu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+    <div id="startScreen">
+        <h1>Mini Archero</h1>
+        <p>Düşmanları yok et ve hayatta kal!</p>
+        <button id="startButton">Oyunu Başlat</button>
+    </div>
+    <div id="winMsg">Kazandınız!</div>
+    
+    <!-- Mobil Kontroller -->
+    <div id="mobileControls">
+        <!-- Hareket Kontrolleri -->
+        <div id="joystickArea">
+            <div id="joystick">
+                <div id="joystickKnob"></div>
+            </div>
+        </div>
+        
+        <!-- Aksiyon Butonları -->
+        <div id="actionButtons">
+            <button id="shootButton">🏹</button>
+            <button id="dashButton">⚡</button>
+        </div>
+    </div>
+    <!-- 1. Oyunun durumunu tutan ana nesne -->
+    <script src="gameState.js"></script>
+    <script src="audio.js"></script>
+    <!-- 2. Diğer tüm modüller ve yardımcı fonksiyonlar -->
+    <script src="efektler.js"></script>
+    <script src="coins.js"></script>
+    <script src="kapianim.js"></script>
+    <script src="portals.js"></script>
+    <script src="gameEnhancements.js"></script>
+    <script src="shop.js"></script>
+    <script src="düşman.js"></script>
+    <script src="boss.js"></script>
+    <script src="controller.js"></script>
+    <!-- 3. Her şeyi bir araya getiren ve oyunu başlatan ana script -->
+    <script src="main.js"></script>
+</body>
+</html>
