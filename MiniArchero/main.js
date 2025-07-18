@@ -263,8 +263,12 @@ function gameLoop() {
             let tries = 0;
             let ex, ey, valid;
             do {
-                ex = Math.random() * 700 + 50;
-                ey = Math.random() * 200 + 50;
+                // Mobil cihazlarda daha küçük bir alanda düşmanları oluştur
+                const maxWidth = canvas.width - 100;
+                const maxHeight = canvas.height / 3;
+                
+                ex = Math.random() * maxWidth + 50;
+                ey = Math.random() * maxHeight + 50;
                 valid = true;
                 // Diğer düşmanlarla çakışma kontrolü
                 for (const other of gameState.enemies) {
@@ -277,8 +281,10 @@ function gameLoop() {
                 }
                 // Oyuncu başlangıç alanı ile çakışma kontrolü
                 if (valid) {
-                    const dx = (ex + 15) - (400 + 15);
-                    const dy = (ey + 15) - (400 + 15);
+                    const playerX = window.innerWidth <= 800 ? canvas.width / 2 : 400;
+                    const playerY = window.innerWidth <= 800 ? canvas.height / 2 + 50 : 400;
+                    const dx = (ex + 15) - (playerX + 15);
+                    const dy = (ey + 15) - (playerY + 15);
                     if (Math.sqrt(dx * dx + dy * dy) < 80) valid = false;
                 }
                 tries++;
@@ -774,9 +780,13 @@ function checkDoor() {
         // Canvas boyutunu ayarlama fonksiyonu
         function resizeCanvas() {
             if (window.innerWidth <= 800) {
-                // Mobil cihazlarda tam ekran
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                // Mobil cihazlarda daha küçük boyut
+                const screenWidth = window.innerWidth;
+                const screenHeight = window.innerHeight;
+                
+                // Ekranın %90 genişliği ve %70 yüksekliği
+                canvas.width = Math.min(screenWidth * 0.9, 600);
+                canvas.height = Math.min(screenHeight * 0.7, 400);
                 
                 // Oyun alanını yeniden ayarla
                 gameState.door.x = canvas.width / 2 - 20;
@@ -804,6 +814,13 @@ function checkDoor() {
             startScreen.style.display = 'none'; // Başlat ekranını gizle
             loadSounds(); // Sesleri kullanıcı etkileşiminden sonra yükle
             resizeCanvas(); // Canvas boyutunu ayarla
+            
+            // Mobil cihazlarda oyuncu başlangıç konumunu ayarla
+            if (window.innerWidth <= 800) {
+                gameState.player.x = canvas.width / 2 - gameState.player.size / 2;
+                gameState.player.y = canvas.height / 2 + 50;
+            }
+            
             resetLevel(); // İlk bölümü kur
             animId = requestAnimationFrame(gameLoop); // Oyun döngüsünü başlat
         }
