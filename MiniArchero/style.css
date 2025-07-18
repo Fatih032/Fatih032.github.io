@@ -63,6 +63,201 @@
     transition: all 0.3s ease;
 }
 
+/* Zorluk seviyesi seçimi */
+#difficultySelector {
+    margin-bottom: 20px;
+}
+
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.difficulty-btn {
+    padding: 8px 16px;
+    background-color: transparent;
+    border: 2px solid #ffd700;
+    color: #ffd700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.difficulty-btn:hover {
+    background-color: rgba(255, 215, 0, 0.2);
+}
+
+.difficulty-btn.selected {
+    background-color: #ffd700;
+    color: #222;
+}
+
+/* Yardım Butonu */
+.help-btn {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: transparent;
+    border: 2px solid #4caf50;
+    color: #4caf50;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.help-btn:hover {
+    background-color: rgba(76, 175, 80, 0.2);
+}
+
+/* Modal (Yardım Ekranı) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: #333;
+    margin: 5% auto;
+    padding: 20px;
+    border: 2px solid #ffd700;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 10px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.close-btn {
+    color: #ffd700;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+.help-section {
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 15px;
+}
+
+.help-section:last-child {
+    border-bottom: none;
+}
+
+.help-section h3 {
+    color: #ffd700;
+    margin-bottom: 10px;
+}
+
+/* Düşman ve güçlendirme renkleri */
+.enemy-red { color: #e53935; }
+.enemy-purple { color: #ab47bc; }
+.enemy-orange { color: #ffa726; }
+.enemy-blue { color: #00e6ff; }
+
+.powerup-multi { color: #ff9800; }
+.powerup-fast { color: #00e6ff; }
+.powerup-big { color: #9c27b0; }
+.powerup-speed { color: #4caf50; }
+.powerup-shield { color: #2196f3; }
+
+/* Duraklatma Menüsü */
+.pause-content {
+    text-align: center;
+}
+
+.menu-btn {
+    display: block;
+    width: 80%;
+    margin: 15px auto;
+    padding: 12px;
+    background-color: transparent;
+    border: 2px solid #ffd700;
+    color: #ffd700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    font-size: 1.2em;
+}
+
+.menu-btn:hover {
+    background-color: rgba(255, 215, 0, 0.2);
+}
+
+#resumeBtn {
+    border-color: #4caf50;
+    color: #4caf50;
+}
+
+#resumeBtn:hover {
+    background-color: rgba(76, 175, 80, 0.2);
+}
+
+#quitBtn {
+    border-color: #f44336;
+    color: #f44336;
+}
+
+#quitBtn:hover {
+    background-color: rgba(244, 67, 54, 0.2);
+}
+
+/* Oyun Sonu Ekranı */
+.game-over-content {
+    text-align: center;
+    padding: 30px;
+}
+
+.game-over-content h2 {
+    color: #ffd700;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+#gameStats {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+#gameStats p {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+#gameStats span {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+#levelReached {
+    color: #4caf50 !important;
+}
+
+#coinsCollected {
+    color: #ffc107 !important;
+}
+
+#finalScore {
+    color: #2196f3 !important;
+}
+
 /* Mobil cihazlar için başlangıç ekranı */
 @media (max-width: 800px) {
     #startScreen h1 {
@@ -78,6 +273,16 @@
         font-size: 1.4em;
         padding: 12px 24px;
     }
+    
+    .difficulty-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .difficulty-btn {
+        width: 150px;
+        margin: 0 auto;
+    }
 }
 
 #startButton:hover {
@@ -85,7 +290,7 @@
     color: #222;
 }
 
-.upgrade-notification {
+.upgrade-notification, .level-info {
     animation: fadeInOut 3.5s ease-in-out;
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
     text-align: center;
@@ -94,11 +299,24 @@
     line-height: 1.5;
 }
 
+.level-info h3 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    color: #ffd700;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.level-info p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
 @keyframes fadeInOut {
     0% { opacity: 0; transform: translateY(-20px) translateX(-50%); }
-    10% { opacity: 1; transform: translateY(0) translateX(-50%); }
-    80% { opacity: 1; }
-    100% { opacity: 0; }
+    20% { opacity: 1; transform: translateY(0) translateX(-50%); }
+    80% { opacity: 1; transform: translateY(0) translateX(-50%); }
+    100% { opacity: 0; transform: translateY(10px) translateX(-50%); }
 }
 
 /* Mobil Kontroller */
@@ -176,6 +394,156 @@
     background-color: rgba(0, 191, 255, 0.3) !important;
 }
 
+/* Görev Sistemi Stilleri */
+.quest-panel {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-left: 3px solid #ffd700;
+    border-bottom: 3px solid #ffd700;
+    border-top: 3px solid #ffd700;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    color: white;
+    padding: 15px;
+    z-index: 1000;
+    transition: right 0.3s ease;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.quest-title {
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.5);
+    padding-bottom: 5px;
+}
+
+.quest-title h3 {
+    margin: 0;
+    color: #ffd700;
+    font-size: 20px;
+}
+
+.quest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quest-item {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.quest-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.quest-desc {
+    font-size: 14px;
+    color: #fff;
+}
+
+.quest-reward {
+    font-size: 14px;
+    color: #ffd700;
+    white-space: nowrap;
+}
+
+.quest-progress-container {
+    height: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.quest-progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.quest-progress-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: white;
+    text-shadow: 0 0 2px black;
+}
+
+.toggle-quest-button {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid #ffd700;
+    border-radius: 50%;
+    color: #ffd700;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+}
+
+.toggle-quest-button:hover {
+    background-color: rgba(255, 215, 0, 0.2);
+    transform: scale(1.1);
+}
+
+.no-quest-msg {
+    text-align: center;
+    color: #aaa;
+    font-style: italic;
+    padding: 10px;
+}
+
+.quest-notification {
+    position: fixed;
+    top: 120px;
+    right: -300px;
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-left: 3px solid #ffd700;
+    border-radius: 5px;
+    color: white;
+    padding: 15px;
+    z-index: 1002;
+    transition: all 0.5s ease;
+    opacity: 0;
+    transform: translateX(0);
+}
+
+.quest-notification-title {
+    color: #ffd700;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.quest-notification-message {
+    font-size: 14px;
+}
+
 /* Mobil cihazlar için responsive tasarım */
 @media (max-width: 800px) {
     body {
@@ -219,5 +587,24 @@
         width: 60px;
         height: 60px;
         font-size: 20px;
+    }
+    
+    #pauseButton {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        color: white;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 150;
+        pointer-events: auto;
     }
 }

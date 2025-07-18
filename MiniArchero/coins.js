@@ -54,6 +54,11 @@ function checkCoins(player) {
             playSound('coin');
             if (typeof spawnParticles === "function") spawnParticles(coin.x, coin.y, "#ffd700");
             gameState.coins.splice(i, 1); // Altını kaldır
+            
+            // Görev sistemine altın toplama bilgisini gönder
+            if (window.questSystem) {
+                window.questSystem.updateQuestProgress("COLLECT_COINS");
+            }
         }
     }
 }

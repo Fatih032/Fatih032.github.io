@@ -226,6 +226,11 @@
 
                 if (gameState.player.dashTimer <= 0) {
                     gameState.player.isDashing = false;
+                    
+                    // Görev sistemine dash kullanma bilgisini gönder
+                    if (window.questSystem) {
+                        window.questSystem.updateQuestProgress("USE_DASH");
+                    }
                 }
                 return; // Dash sırasında normal hareketi atla
             }

@@ -47,6 +47,12 @@
                         spawnParticles(gameState.player.x + gameState.player.size / 2, gameState.player.y + gameState.player.size / 2, '#ff1744', 20);
                     }
                 }
+                
+                // Görev sistemine düşman öldürme bilgisini gönder
+                if (window.questSystem) {
+                    window.questSystem.updateQuestProgress("KILL_ENEMIES");
+                }
+                
                 gameState.enemies.splice(i, 1);
                 gameState.arrows.splice(j, 1);
                 break;
@@ -72,13 +78,8 @@
                 return;
             }
             if (gameState.shieldInvincible) return;
-            playSound('playerHit');
             spawnParticles(enemy.x + enemy.size / 2, enemy.y + enemy.size / 2, enemy.color);
-            spawnParticles(gameState.player.x + gameState.player.size / 2, gameState.player.y + gameState.player.size / 2, '#ffd600');
-            winMsg.innerText = 'Kaybettiniz!';
-            winMsg.style.display = 'block';
-            gameState.isGameOver = true;
-            gameState.gameOverTimer = 60;
+            playerTakeDamage();
             return;
         }
     }
@@ -110,14 +111,9 @@
                 continue;
             }
             // Kalkan yoksa oyuncu hasar alır
-            playSound('playerHit');
-            spawnParticles(gameState.player.x + gameState.player.size / 2, gameState.player.y + gameState.player.size / 2, '#ffd600');
-            winMsg.innerText = 'Kaybettiniz!';
-            winMsg.style.display = 'block';
-            gameState.isGameOver = true;
-            gameState.gameOverTimer = 60;
             gameState.enemyProjectiles.splice(i, 1);
-            return; // Oyuncu öldü, fonksiyondan çık
+            playerTakeDamage();
+            return; // Fonksiyondan çık
         }
     }
 
@@ -148,20 +144,15 @@
             }
 
             // Hasar al
-            playSound('playerHit');
-            spawnParticles(gameState.player.x + gameState.player.size / 2, gameState.player.y + gameState.player.size / 2, '#ffd600');
-            winMsg.innerText = 'Kaybettiniz!';
-            winMsg.style.display = 'block';
-            gameState.isGameOver = true;
-            gameState.gameOverTimer = 60;
-            return; // Oyuncu öldü, fonksiyondan çık
+            playerTakeDamage();
+            return; // Fonksiyondan çık
         }
     }
 }
 
 function gameLoop() {
-    // Dükkan veya yükseltme ekranı açıkken oyunu duraklat
-    if (gameState.shopOpen || gameState.isUpgradeScreenOpen) {
+    // Dükkan, yükseltme ekranı veya oyun duraklatıldığında
+    if (gameState.shopOpen || gameState.isUpgradeScreenOpen || gameState.isPaused) {
         draw();
         requestAnimationFrame(gameLoop);
         return;
@@ -203,8 +194,7 @@ function gameLoop() {
         }
         // Kazanma kontrolü
         if (gameState.level > gameState.maxLevel) {
-            winMsg.innerText = 'Tebrikler! Tüm bölümleri geçtiniz!';
-            winMsg.style.display = 'block';
+            showGameOverScreen('Tebrikler! Oyunu Tamamladınız!', true);
             return;
         }
         animId = requestAnimationFrame(gameLoop);
@@ -215,17 +205,12 @@ function gameLoop() {
         gameState.gameOverTimer--;
         if (gameState.gameOverTimer > 0 && gameState.particles.length > 0) {
             animId = requestAnimationFrame(gameLoop);
-        } else if (gameState.lives > 1) {
-            // Can varsa devam et
-            gameState.lives--;
+        } else {
+            // Oyun durumunu sıfırla ve devam et
             gameState.isGameOver = false;
             winMsg.style.display = 'none';
             resetLevel();
             animId = requestAnimationFrame(gameLoop);
-        } else {
-            // Tüm canlar bitti
-            winMsg.innerText = 'Tüm canlarınız bitti!';
-            winMsg.style.display = 'block';
         }
     }
 }
@@ -293,10 +278,14 @@ function gameLoop() {
             if (valid) {
                 if (specialTypes.length > 0) {
                     const type = specialTypes.shift();
-                    let color = '#e53935';
-                    if (type === 'portal') color = '#00e6ff';
-                    else if (type === 'shooter') color = '#ab47bc';
-                    else if (type === 'exploder') color = '#ffa726';
+                    const themeIndex = Math.min(Math.floor((gameState.level - 1) / 5), gameState.themes.length - 1);
+                    const currentTheme = gameState.themes[themeIndex];
+                    
+                    // Tema renklerini kullan
+                    let color;
+                    if (type === 'portal') color = currentTheme.portalColor;
+                    else if (type === 'shooter') color = currentTheme.shooterColor;
+                    else if (type === 'exploder') color = currentTheme.exploderColor;
 
                     const newEnemy = { x: ex, y: ey, size: 30, color: color, dx: (Math.random() - 0.5) * 2, dy: (Math.random() - 0.5) * 2, type: type };
 
@@ -310,7 +299,9 @@ function gameLoop() {
                     }
                     gameState.enemies.push(newEnemy);
                 } else {
-                    gameState.enemies.push({ x: ex, y: ey, size: 30, color: '#e53935', dx: (Math.random() - 0.5) * 2, dy: (Math.random() - 0.5) * 2 });
+                    const themeIndex = Math.min(Math.floor((gameState.level - 1) / 5), gameState.themes.length - 1);
+                    const currentTheme = gameState.themes[themeIndex];
+                    gameState.enemies.push({ x: ex, y: ey, size: 30, color: currentTheme.enemyColor, dx: (Math.random() - 0.5) * 2, dy: (Math.random() - 0.5) * 2 });
                 }
             }
         }
@@ -383,7 +374,14 @@ function checkDoor() {
         py + gameState.player.size / 2 > gameState.door.y
     ) {
         gameState.level++;
+        gameState.showLevelInfo = true; // Yeni bölüm bilgisini göster
         playSound('levelUp');
+        
+        // Görev sistemine bölüm tamamlama bilgisini gönder
+        if (window.questSystem) {
+            window.questSystem.updateQuestProgress("COMPLETE_LEVELS");
+        }
+        
         resetLevel();
     }
 }
@@ -448,17 +446,153 @@ function checkDoor() {
             ctx.restore();
         }
 
-        // Mağaza açma/kapama tuşu
+        // Mağaza ve duraklatma tuşları
         document.addEventListener("keydown", function(e) {
+            // Mağaza açma/kapama
             if (e.key === "m" || e.key === "M") gameState.shopOpen = !gameState.shopOpen;
             if (typeof handleShopKey === "function") handleShopKey(e);
+            
+            // Oyunu duraklatma (ESC tuşu)
+            if (e.key === "Escape") {
+                if (!gameState.isGameOver && !startScreen.style.display) {
+                    togglePause();
+                }
+            }
+        });
+        
+        // Duraklatma menüsü
+        const pauseMenu = document.getElementById('pauseMenu');
+        const resumeBtn = document.getElementById('resumeBtn');
+        const restartBtn = document.getElementById('restartBtn');
+        const helpFromPauseBtn = document.getElementById('helpFromPauseBtn');
+        const quitBtn = document.getElementById('quitBtn');
+        const pauseButton = document.getElementById('pauseButton');
+        
+        function togglePause() {
+            gameState.isPaused = !gameState.isPaused;
+            
+            if (gameState.isPaused) {
+                pauseMenu.style.display = 'block';
+            } else {
+                pauseMenu.style.display = 'none';
+            }
+        }
+        
+        resumeBtn.addEventListener('click', togglePause);
+        
+        restartBtn.addEventListener('click', () => {
+            gameState.isPaused = false;
+            pauseMenu.style.display = 'none';
+            gameState.level = 1;
+            gameState.coinCount = 20;
+            gameState.lives = selectedDifficulty === 'easy' ? 5 : (selectedDifficulty === 'normal' ? 3 : 2);
+            gameState.playerUpgrades = [];
+            resetLevel();
+        });
+        
+        helpFromPauseBtn.addEventListener('click', () => {
+            helpScreen.style.display = 'block';
+        });
+        
+        quitBtn.addEventListener('click', () => {
+            gameState.isPaused = false;
+            pauseMenu.style.display = 'none';
+            startScreen.style.display = 'flex';
+            cancelAnimationFrame(animId);
+        });
+        
+        // Mobil duraklatma butonu
+        pauseButton.addEventListener('click', togglePause);
+        
+        // Yardım ekranı için kod
+        const helpButton = document.getElementById('helpButton');
+        const helpScreen = document.getElementById('helpScreen');
+        const closeBtn = document.querySelector('.close-btn');
+        
+        // Oyun sonu ekranı değişkenleri
+        const gameOverScreen = document.getElementById('gameOverScreen');
+        const gameOverTitle = document.getElementById('gameOverTitle');
+        const levelReached = document.getElementById('levelReached');
+        const coinsCollected = document.getElementById('coinsCollected');
+        const finalScore = document.getElementById('finalScore');
+        const restartGameBtn = document.getElementById('restartGameBtn');
+        const mainMenuBtn = document.getElementById('mainMenuBtn');
+        
+        // Oyun sonu ekranı butonları
+        restartGameBtn.addEventListener('click', () => {
+            gameOverScreen.style.display = 'none';
+            gameState.isGameOver = false;
+            gameState.level = 1;
+            gameState.coinCount = 20;
+            gameState.lives = selectedDifficulty === 'easy' ? 5 : (selectedDifficulty === 'normal' ? 3 : 2);
+            gameState.playerUpgrades = [];
+            resetLevel();
+            animId = requestAnimationFrame(gameLoop);
+        });
+        
+        mainMenuBtn.addEventListener('click', () => {
+            gameOverScreen.style.display = 'none';
+            startScreen.style.display = 'flex';
+            cancelAnimationFrame(animId);
         });
 
         function draw() {
-            // Temayı uygula
-            const themeIndex = Math.floor((gameState.level - 1) / 5) % gameState.themes.length;
+            // Temayı uygula - Her 5 bölümde bir tema değişir
+            const themeIndex = Math.min(Math.floor((gameState.level - 1) / 5), gameState.themes.length - 1);
             const currentTheme = gameState.themes[themeIndex];
             canvas.style.backgroundColor = currentTheme.backgroundColor;
+            
+            // Bölüm bilgisini göster - sadece yeni bölüm başladığında
+            if (!gameState.shopOpen && !gameState.isUpgradeScreenOpen && !gameState.isPaused && !gameState.isGameOver && gameState.showLevelInfo) {
+                // Mevcut level-info elementini kontrol et ve varsa kaldır
+                const existingInfo = document.querySelector('.level-info');
+                if (existingInfo) {
+                    document.body.removeChild(existingInfo);
+                }
+                
+                const levelInfo = document.createElement('div');
+                levelInfo.className = 'level-info';
+                
+                // Arena bölümü mü kontrol et
+                const isArenaLevel = gameState.level % 10 === 0 && gameState.level > 0;
+                
+                if (isArenaLevel) {
+                    levelInfo.innerHTML = `<h3>ARENA - Bölüm ${gameState.level}</h3><p>Güçlü düşmanlarla dolu arena! Hayatta kalabilecek misin?</p>`;
+                    levelInfo.style.color = '#ff5252';
+                } else {
+                    levelInfo.innerHTML = `<h3>${currentTheme.name} - Bölüm ${gameState.level}</h3><p>${currentTheme.description}</p>`;
+                    levelInfo.style.color = '#fff';
+                }
+                
+                levelInfo.style.position = 'fixed';
+                levelInfo.style.top = '70px';
+                levelInfo.style.left = '50%';
+                levelInfo.style.transform = 'translateX(-50%)';
+                levelInfo.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                levelInfo.style.padding = '15px 25px';
+                levelInfo.style.borderRadius = '8px';
+                levelInfo.style.zIndex = '1000';
+                levelInfo.style.textAlign = 'center';
+                levelInfo.style.opacity = '0';
+                levelInfo.style.transition = 'opacity 0.5s';
+                levelInfo.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.5)';
+                levelInfo.style.border = '2px solid #ffd700';
+                document.body.appendChild(levelInfo);
+                
+                // Bilgiyi göster ve sonra kaybol - daha uzun süre görünsün
+                setTimeout(() => {
+                    levelInfo.style.opacity = '1';
+                    setTimeout(() => {
+                        levelInfo.style.opacity = '0';
+                        setTimeout(() => {
+                            if (document.body.contains(levelInfo)) {
+                                document.body.removeChild(levelInfo);
+                            }
+                            gameState.showLevelInfo = false; // Bilgiyi bir kez gösterdikten sonra bayrağı sıfırla
+                        }, 1000);
+                    }, 5000); // Daha uzun süre görünsün
+                }, 500); // Daha geç başlasın
+            }
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
@@ -508,6 +642,33 @@ function checkDoor() {
             } else {
                 ctx.fillText('Bölüm: ' + gameState.level, canvas.width - 20, 30);
             }
+            
+            // İlerleme Çubuğu
+            const progressBarWidth = canvas.width - 40;
+            const progressBarHeight = 6;
+            const progressBarX = 20;
+            const progressBarY = 50;
+            
+            // İlerleme çubuğu arka planı
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.fillRect(progressBarX, progressBarY, progressBarWidth, progressBarHeight);
+            
+            // Düşman sayısına göre ilerleme
+            const totalEnemies = gameState.difficulty.enemyBaseCount + Math.floor(gameState.level * gameState.difficulty.enemyPerLevel);
+            const remainingEnemies = gameState.enemies.length + (gameState.boss ? 1 : 0);
+            const progress = 1 - (remainingEnemies / (totalEnemies + (gameState.boss ? 1 : 0)));
+            
+            // İlerleme çubuğu dolumu
+            const gradient = ctx.createLinearGradient(progressBarX, 0, progressBarX + progressBarWidth * progress, 0);
+            gradient.addColorStop(0, '#4caf50');
+            gradient.addColorStop(1, '#8bc34a');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(progressBarX, progressBarY, progressBarWidth * progress, progressBarHeight);
+            
+            // Çerçeve
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(progressBarX, progressBarY, progressBarWidth, progressBarHeight);
             ctx.restore(); // textAlign'ı ve diğer ayarları sıfırlamak için
 
             // Dash Bekleme Süresi Arayüzü
@@ -750,6 +911,11 @@ function checkDoor() {
                 spawnParticles(gameState.powerupItem.x, gameState.powerupItem.y, '#ffd700', 20);
                 playSound('powerup');
                 
+                // Görev sistemine güçlendirme toplama bilgisini gönder
+                if (window.questSystem) {
+                    window.questSystem.updateQuestProgress("COLLECT_POWERUPS");
+                }
+                
                 // Güçlendirme alındığında bildirim göster
                 const upgrade = gameState.powerupItem.upgrade;
                 const notification = document.createElement('div');
@@ -808,7 +974,113 @@ function checkDoor() {
         // --- OYUNU BAŞLATMA ---
         const startScreen = document.getElementById('startScreen');
         const startButton = document.getElementById('startButton');
+        const easyBtn = document.getElementById('easyBtn');
+        const normalBtn = document.getElementById('normalBtn');
+        const hardBtn = document.getElementById('hardBtn');
         let animId;
+        let selectedDifficulty = 'easy';
+        
+        // Oyun sonu ekranını gösterme fonksiyonu
+        function playerTakeDamage() {
+            playSound('playerHit');
+            spawnParticles(gameState.player.x + gameState.player.size / 2, gameState.player.y + gameState.player.size / 2, '#ffd600');
+            
+            // Oyuncunun birden fazla canı varsa, sadece canı azalt
+            if (gameState.lives > 1) {
+                gameState.lives--;
+                gameState.isGameOver = true;
+                gameState.gameOverTimer = 60;
+                return true; // Canı azaltıldı, oyun devam edecek
+            } else {
+                // Son can da bitti, oyun sonu ekranını göster
+                showGameOverScreen('Kaybettiniz!', false);
+                return false; // Oyun bitti
+            }
+        }
+        
+        function showGameOverScreen(message, isWin) {
+            gameState.isGameOver = true;
+            gameState.gameOverTimer = 60;
+            
+            // İstatistikleri güncelle
+            gameOverTitle.innerText = message;
+            levelReached.innerText = gameState.level;
+            coinsCollected.innerText = gameState.coinCount;
+            
+            // Puan hesaplama
+            const score = gameState.level * 100 + gameState.coinCount * 10;
+            finalScore.innerText = score;
+            
+            // Ekranı göster
+            setTimeout(() => {
+                gameOverScreen.style.display = 'block';
+            }, 1000);
+        }
+        
+        // Zorluk seviyesi seçimi
+        easyBtn.addEventListener('click', () => setDifficulty('easy'));
+        normalBtn.addEventListener('click', () => setDifficulty('normal'));
+        hardBtn.addEventListener('click', () => setDifficulty('hard'));
+        
+        function setDifficulty(difficulty) {
+            selectedDifficulty = difficulty;
+            
+            // Tüm butonlardan seçili sınıfı kaldır
+            easyBtn.classList.remove('selected');
+            normalBtn.classList.remove('selected');
+            hardBtn.classList.remove('selected');
+            
+            // Seçilen butona sınıf ekle
+            if (difficulty === 'easy') easyBtn.classList.add('selected');
+            else if (difficulty === 'normal') normalBtn.classList.add('selected');
+            else if (difficulty === 'hard') hardBtn.classList.add('selected');
+            
+            // Zorluk ayarlarını güncelle
+            switch(difficulty) {
+                case 'easy':
+                    gameState.difficulty = {
+                        enemyBaseCount: 3,
+                        enemyPerLevel: 0.3,
+                        enemySpeed: 1.2,
+                        shooterAttackCooldown: 150,
+                        bossBaseHp: 3,
+                        bossHpPerLevel: 0.3,
+                        coinDropChance: 0.7,
+                        exploderRadius: 80,
+                        vampireLifestealChance: 0.15
+                    };
+                    gameState.lives = 5; // Kolay modda daha fazla can
+                    break;
+                case 'normal':
+                    gameState.difficulty = {
+                        enemyBaseCount: 5,
+                        enemyPerLevel: 0.5,
+                        enemySpeed: 1.5,
+                        shooterAttackCooldown: 120,
+                        bossBaseHp: 5,
+                        bossHpPerLevel: 0.5,
+                        coinDropChance: 0.5,
+                        exploderRadius: 100,
+                        vampireLifestealChance: 0.1
+                    };
+                    gameState.lives = 3; // Normal modda standart can
+                    break;
+                case 'hard':
+                    gameState.difficulty = {
+                        enemyBaseCount: 7,
+                        enemyPerLevel: 0.7,
+                        enemySpeed: 1.8,
+                        shooterAttackCooldown: 90,
+                        bossBaseHp: 7,
+                        bossHpPerLevel: 0.7,
+                        coinDropChance: 0.3,
+                        exploderRadius: 120,
+                        vampireLifestealChance: 0.05
+                    };
+                    gameState.lives = 2; // Zor modda daha az can
+                    break;
+            }
+        }
 
         function startGame() {
             startScreen.style.display = 'none'; // Başlat ekranını gizle
@@ -821,8 +1093,38 @@ function checkDoor() {
                 gameState.player.y = canvas.height / 2 + 50;
             }
             
+            // Görev sistemini başlat
+            if (window.questSystem) {
+                window.questSystem.initialize();
+            }
+            
+            gameState.showLevelInfo = true; // İlk bölüm bilgisini göster
             resetLevel(); // İlk bölümü kur
             animId = requestAnimationFrame(gameLoop); // Oyun döngüsünü başlat
+            
+            // Oyun süresi sayacını başlat (görev sistemi için)
+            setInterval(() => {
+                if (!gameState.isPaused && !gameState.isGameOver && !gameState.shopOpen) {
+                    if (window.questSystem) {
+                        window.questSystem.updateTimeBasedQuests();
+                    }
+                }
+            }, 1000); // Her saniye güncelle
         }
 
         startButton.addEventListener('click', startGame);
+        
+        helpButton.addEventListener('click', () => {
+            helpScreen.style.display = 'block';
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            helpScreen.style.display = 'none';
+        });
+        
+        // Modal dışına tıklayınca kapat
+        window.addEventListener('click', (event) => {
+            if (event.target === helpScreen) {
+                helpScreen.style.display = 'none';
+            }
+        });

@@ -177,6 +177,23 @@
                     gameState.arrows.splice(i, 1);
                     if (gameState.boss.hp <= 0) {
                         spawnParticles(gameState.boss.x + gameState.boss.size/2, gameState.boss.y + gameState.boss.size/2, gameState.boss.color);
+                        
+                        // Boss öldüğünde büyük patlama efekti
+                        createExplosion(gameState.boss.x + gameState.boss.size/2, gameState.boss.y + gameState.boss.size/2, 150);
+                        playSound('explosion');
+                        
+                        // Altın bırak
+                        for (let i = 0; i < 10; i++) {
+                            const offsetX = (Math.random() - 0.5) * 60;
+                            const offsetY = (Math.random() - 0.5) * 60;
+                            spawnCoin(gameState.boss.x + gameState.boss.size/2 + offsetX, gameState.boss.y + gameState.boss.size/2 + offsetY);
+                        }
+                        
+                        // Görev sistemine boss yenme bilgisini gönder
+                        if (window.questSystem) {
+                            window.questSystem.updateQuestProgress("DEFEAT_BOSS");
+                        }
+                        
                         gameState.boss = null;
                         return; // boss öldü, fonksiyondan çık
                     }

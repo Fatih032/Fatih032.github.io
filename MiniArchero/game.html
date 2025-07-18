@@ -11,9 +11,77 @@
     <div id="startScreen">
         <h1>Mini Archero</h1>
         <p>Düşmanları yok et ve hayatta kal!</p>
+        <div id="difficultySelector">
+            <p>Zorluk Seviyesi:</p>
+            <div class="difficulty-buttons">
+                <button id="easyBtn" class="difficulty-btn selected">Kolay</button>
+                <button id="normalBtn" class="difficulty-btn">Normal</button>
+                <button id="hardBtn" class="difficulty-btn">Zor</button>
+            </div>
+        </div>
         <button id="startButton">Oyunu Başlat</button>
+        <button id="helpButton" class="help-btn">Nasıl Oynanır?</button>
     </div>
-    <div id="winMsg">Kazandınız!</div>
+    
+    <!-- Yardım Ekranı -->
+    <div id="helpScreen" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Nasıl Oynanır?</h2>
+            <div class="help-section">
+                <h3>Kontroller:</h3>
+                <p><strong>Bilgisayar:</strong> WASD veya Ok Tuşları ile hareket, Fare ile nişan al ve ateş et, SHIFT ile dash at</p>
+                <p><strong>Mobil:</strong> Sol taraftaki joystick ile hareket et, Sağ taraftaki butonlar ile ateş et ve dash at</p>
+            </div>
+            <div class="help-section">
+                <h3>Düşman Türleri:</h3>
+                <p><span class="enemy-red">Kırmızı Düşman:</span> Normal düşman, sana doğru hareket eder</p>
+                <p><span class="enemy-purple">Mor Düşman:</span> Nişancı, uzaktan ateş eder</p>
+                <p><span class="enemy-orange">Turuncu Düşman:</span> Patlayıcı, yaklaştığında patlar</p>
+                <p><span class="enemy-blue">Mavi Düşman:</span> Portal, rastgele yerlere ışınlanır</p>
+            </div>
+            <div class="help-section">
+                <h3>Güçlendirmeler:</h3>
+                <p><span class="powerup-multi">🔱 Çoklu Atış:</span> 3 yöne ok atışı</p>
+                <p><span class="powerup-fast">⚡ Hızlı Ok:</span> Oklar daha hızlı</p>
+                <p><span class="powerup-big">🏹 Büyük Ok:</span> Oklar daha büyük</p>
+                <p><span class="powerup-speed">👟 Hızlı Hareket:</span> Oyuncu daha hızlı</p>
+                <p><span class="powerup-shield">🛡️ Kalkan:</span> Bir kez temasta ölmez</p>
+            </div>
+            <div class="help-section">
+                <h3>İpucu:</h3>
+                <p>Her 3 bölümde bir güçlendirme seçeneği sunulur.</p>
+                <p>Altınları toplayarak dükkandan kalıcı güçlendirmeler alabilirsin (M tuşu ile dükkanı aç).</p>
+                <p>Dash atarak düşmanlardan ve mermilerden kaçabilirsin.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Oyun Sonu Ekranı -->
+    <div id="gameOverScreen" class="modal">
+        <div class="modal-content game-over-content">
+            <h2 id="gameOverTitle">Oyun Bitti!</h2>
+            <div id="gameStats">
+                <p>Ulaşılan Bölüm: <span id="levelReached">0</span></p>
+                <p>Toplanan Altın: <span id="coinsCollected">0</span></p>
+                <p>Puan: <span id="finalScore">0</span></p>
+            </div>
+            <button id="restartGameBtn" class="menu-btn">Yeniden Başlat</button>
+            <button id="mainMenuBtn" class="menu-btn">Ana Menüye Dön</button>
+        </div>
+    </div>
+    
+    <div id="winMsg" style="display:none;">Kazandınız!</div>
+    
+    <!-- Duraklatma Menüsü -->
+    <div id="pauseMenu" class="modal">
+        <div class="modal-content pause-content">
+            <h2>Oyun Duraklatıldı</h2>
+            <button id="resumeBtn" class="menu-btn">Devam Et</button>
+            <button id="restartBtn" class="menu-btn">Yeniden Başlat</button>
+            <button id="helpFromPauseBtn" class="menu-btn">Nasıl Oynanır?</button>
+            <button id="quitBtn" class="menu-btn">Ana Menüye Dön</button>
+        </div>
+    </div>
     
     <!-- Mobil Kontroller -->
     <div id="mobileControls">
@@ -29,6 +97,9 @@
             <button id="shootButton">🏹</button>
             <button id="dashButton">⚡</button>
         </div>
+        
+        <!-- Duraklatma Butonu -->
+        <button id="pauseButton">⏸️</button>
     </div>
     <!-- 1. Oyunun durumunu tutan ana nesne -->
     <script src="gameState.js"></script>
@@ -43,6 +114,9 @@
     <script src="düşman.js"></script>
     <script src="boss.js"></script>
     <script src="controller.js"></script>
+    <!-- Yeni eklenen özellikler -->
+    <script src="enemyAttacks.js"></script>
+    <script src="quests.js"></script>
     <!-- 3. Her şeyi bir araya getiren ve oyunu başlatan ana script -->
     <script src="main.js"></script>
 </body>
