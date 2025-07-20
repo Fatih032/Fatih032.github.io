@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 Taş Oyunu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>3 Taş Oyunu</h1>
+        <div id="durum">Oyuncu X'in sırası</div>
+        
+        <div class="oyun-alani">
+            <div class="tahta">
+                <div class="hucre" data-index="0"></div>
+                <div class="hucre" data-index="1"></div>
+                <div class="hucre" data-index="2"></div>
+                <div class="hucre" data-index="3"></div>
+                <div class="hucre" data-index="4"></div>
+                <div class="hucre" data-index="5"></div>
+                <div class="hucre" data-index="6"></div>
+                <div class="hucre" data-index="7"></div>
+                <div class="hucre" data-index="8"></div>
+            </div>
+        </div>
+        
+        <div class="kontroller">
+            <div class="mod-secimi">
+                <label for="bilgisayarSecimi">Oyun Modu:</label>
+                <select id="bilgisayarSecimi">
+                    <option value="">2 Oyunculu</option>
+                    <option value="O">Bilgisayara Karşı (Siz Başlarsınız)</option>
+                    <option value="X">Bilgisayara Karşı (Bilgisayar Başlar)</option>
+                </select>
+            </div>
+            <div class="zorluk-secimi">
+                <label for="zorlukSecimi">Zorluk:</label>
+                <select id="zorlukSecimi">
+                    <option value="kolay">Kolay</option>
+                    <option value="orta" selected>Orta</option>
+                    <option value="zor">Zor</option>
+                </select>
+            </div>
+            <button id="yeniOyun">Yeni Oyun</button>
+        </div>
+        
+        <div class="kurallar">
+            <h2>Oyun Kuralları</h2>
+            <p>
+                3 Taş oyunu iki kişi ile oynanır. Oyun iki aşamadan oluşur:
+            </p>
+            <ol>
+                <li><strong>Yerleştirme Aşaması:</strong> Her oyuncu sırayla 3 taşını tahtaya yerleştirir.</li>
+                <li><strong>Hareket Aşaması:</strong> Tüm taşlar yerleştirildikten sonra, oyuncular sırayla kendi taşlarından birini komşu boş bir kareye hareket ettirir.</li>
+            </ol>
+            <p>
+                Yatay veya dikey olarak üç taşını sıralayan ilk oyuncu oyunu kazanır. Çapraz dizilişler kazanç sayılmaz.
+            </p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

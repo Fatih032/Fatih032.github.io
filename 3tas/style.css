@@ -1,0 +1,138 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 500px;
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#durum {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #555;
+}
+
+.oyun-alani {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tahta {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.hucre {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.hucre:hover {
+    background-color: #f0f0f0;
+}
+
+.x {
+    color: #e74c3c;
+}
+
+.o {
+    color: #3498db;
+}
+
+.secili {
+    background-color: #f1c40f;
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.7);
+}
+
+.kontroller {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.mod-secimi, .zorluk-secimi {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+.zorluk-secimi {
+    margin-left: 20px;
+}
+
+select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background-color: white;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.kurallar {
+    text-align: left;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.kurallar h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.kurallar p {
+    line-height: 1.5;
+    color: #555;
+}
