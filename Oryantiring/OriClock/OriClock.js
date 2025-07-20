@@ -2,8 +2,16 @@ var hour = document.getElementById("hour");
 var minute = document.getElementById("minute");
 var seconds = document.getElementById("seconds");
 
+// Sayfa yüklenince çalışacak kod
+window.onload = function() {
+    // Renk seçicinin başlangıç değerini al
+    secilenrenk = document.getElementById("renk").value;
+    // Arka plan rengini uygula
+    uygulaArkaplanRengi();
+};
 
-
+// Arka plan rengi için global değişken
+var secilenrenk = "#000000";
 
 var clock = setInterval(
     function time() {
@@ -32,12 +40,19 @@ var clock = setInterval(
         seconds.textContent = sec;
     }, 1000
 );
-function arkaplan(){
-    let secilenrenk = document.getElementById("renk").value;
+
+// Arka plan rengini uygulayan fonksiyon
+function uygulaArkaplanRengi() {
     document.body.style.backgroundColor = secilenrenk;
+    document.getElementById("root").style.backgroundColor = secilenrenk;
     document.querySelector("#hour").style.backgroundColor = secilenrenk;
     document.querySelector("#minute").style.backgroundColor = secilenrenk;
     document.querySelector("#seconds").style.backgroundColor = secilenrenk;
+}
+
+function arkaplan(){
+    secilenrenk = document.getElementById("renk").value;
+    uygulaArkaplanRengi();
 }
 
 function saatRenk(){
@@ -49,17 +64,46 @@ function saatRenk(){
     document.querySelector("#span2").style.color = saatRenk;
 }
 
-full = false;
+var full = false;
 function btnClicked(){
     let fullscreen = document.getElementById("root");
     if(full == false){
-        fullscreen.requestFullscreen();
-        full = true;
-        document.body.fullscreenElement.style.backgroundColor = secilenrenk;
+        // Tam ekrana geçmeden önce arka plan rengini kaydet
+        console.log("Tam ekrana geçerken seçilen renk: " + secilenrenk);
+        
+        fullscreen.requestFullscreen()
+            .then(() => {
+                full = true;
+                // Tam ekrana geçtikten sonra arka plan rengini uygula
+                setTimeout(function() {
+                    uygulaArkaplanRengi();
+                    console.log("Tam ekranda arka plan rengi uygulandı: " + secilenrenk);
+                }, 200);
+            })
+            .catch(err => {
+                console.log("Tam ekran hatası: ", err);
+            });
     }
     else{
-        document.exitFullscreen();
-        full = false;
+        try {
+            document.exitFullscreen();
+            full = false;
+        } catch(err) {
+            console.log("Tam ekrandan çıkış hatası: ", err);
+            full = false;
+        }
     }
 }
+
+// Tam ekran değişikliği olayını dinle
+document.addEventListener("fullscreenchange", function() {
+    // Tam ekran durumunu kontrol et
+    full = !!document.fullscreenElement;
+    // Tam ekran değişikliğinde arka plan rengini yeniden uygula
+    setTimeout(function() {
+        uygulaArkaplanRengi();
+        console.log("Arka plan rengi uygulandı: " + secilenrenk);
+    }, 200);
+});
+
 

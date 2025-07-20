@@ -9,6 +9,11 @@ body{
     height: 100vh;
     background:#000000;
 }
+#root{
+    height: 100vh;
+    width: 100%;
+    background: inherit;
+}
 #clock{
     width: 700px;
     height: 200px;
