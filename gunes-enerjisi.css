@@ -533,6 +533,175 @@ h2 em {
     margin-left: 4px;
 }
 
+.home-package {
+    display: grid;
+    padding: 92px max(32px, calc((100% - 1120px) / 2));
+    grid-template-columns: .9fr 1.1fr;
+    align-items: center;
+    gap: clamp(42px, 8vw, 95px);
+    color: #f5f6eb;
+    background: #1b4034;
+}
+
+.package-copy .eyebrow {
+    color: #c6db83;
+}
+
+.package-copy h2 {
+    margin-bottom: 18px;
+    font-size: clamp(37px, 4vw, 50px);
+    font-weight: 580;
+    letter-spacing: -2px;
+    line-height: 1.12;
+}
+
+.package-copy h2 em {
+    color: #c6db83;
+}
+
+.package-copy > p:not(.eyebrow) {
+    max-width: 470px;
+    margin-bottom: 23px;
+    color: #c0ccc0;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.package-benefits {
+    display: grid;
+    margin: 0 0 25px;
+    padding: 0;
+    gap: 12px;
+    list-style: none;
+}
+
+.package-benefits li {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    color: #e2e8dd;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.package-benefits li span {
+    color: #c6db83;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 13px;
+}
+
+.package-card {
+    padding: 25px;
+    color: var(--ink);
+    background: #f8f8f1;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, .13);
+}
+
+.package-card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: #718450;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.package-badge {
+    padding: 6px 8px;
+    border-radius: 2px;
+    color: #50643d;
+    background: #e8efd9;
+    font-size: 8px;
+}
+
+.package-specs {
+    display: grid;
+    margin-top: 17px;
+    grid-template-columns: 1fr;
+}
+
+.package-specs article {
+    display: flex;
+    min-height: 72px;
+    align-items: center;
+    gap: 13px;
+    border-bottom: 1px solid var(--line);
+}
+
+.package-icon {
+    display: grid;
+    width: 35px;
+    height: 35px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    color: #4b6842;
+    background: #eaf0dd;
+    font-size: 17px;
+}
+
+.package-specs small,
+.package-specs strong {
+    display: block;
+}
+
+.package-specs small {
+    margin-bottom: 2px;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.package-specs strong {
+    font-size: 14px;
+}
+
+.package-specs strong i {
+    color: #70816d;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.package-evening {
+    display: flex;
+    margin-top: 17px;
+    padding: 13px;
+    align-items: flex-start;
+    gap: 10px;
+    background: #edf2e4;
+}
+
+.evening-indicator {
+    width: 8px;
+    height: 8px;
+    margin-top: 4px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #8ca34e;
+    box-shadow: 0 0 0 4px #dce8c8;
+}
+
+.package-evening p {
+    margin: 0;
+    color: #69766b;
+    font-size: 9px;
+    line-height: 1.7;
+}
+
+.package-evening strong {
+    color: var(--ink);
+    font-size: 10px;
+}
+
+.package-caveat {
+    margin: 13px 0 0;
+    color: #7b857c;
+    font-size: 9px;
+    line-height: 1.7;
+}
+
 .products-section {
     padding: 99px 32px;
     color: #f5f6eb;
@@ -760,8 +929,15 @@ h2 em {
     padding: 18px 14px;
     flex-direction: column;
     justify-content: center;
+    gap: 12px;
     border-radius: 3px;
     background: #edf2e4;
+}
+
+.result-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .calculation-result p {
@@ -784,10 +960,13 @@ h2 em {
     letter-spacing: 0;
 }
 
-.result-divider {
-    height: 1px;
-    margin: 17px 0;
-    background: #d5decb;
+.array-layout {
+    margin: 0;
+    padding-top: 10px;
+    border-top: 1px solid #d5decb;
+    color: #4d6549;
+    font-size: 10px;
+    font-weight: 700;
 }
 
 .calculation-result small {
@@ -1087,6 +1266,12 @@ h2 em {
         padding: 78px 22px;
     }
 
+    .home-package {
+        padding: 76px 22px;
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
     .products-layout {
         grid-template-columns: .9fr 1.1fr;
         gap: 38px;
@@ -1107,22 +1292,18 @@ h2 em {
 
     .calculation-result {
         display: grid;
-        min-height: 120px;
+        min-height: 150px;
         grid-template-columns: 1fr 1fr;
         align-items: center;
         gap: 2px 12px;
-    }
-
-    .calculation-result p {
-        margin: 0;
     }
 
     .calculation-result strong {
         font-size: 25px;
     }
 
-    .result-divider {
-        display: none;
+    .calculation-result .array-layout {
+        grid-column: 1 / -1;
     }
 
     .calculation-result small {
@@ -1248,6 +1429,19 @@ h2 em {
 
     .products-section {
         padding: 66px 18px;
+    }
+
+    .home-package {
+        padding: 66px 18px;
+        gap: 26px;
+    }
+
+    .package-copy h2 {
+        font-size: 39px;
+    }
+
+    .package-card {
+        padding: 18px;
     }
 
     .products-layout {

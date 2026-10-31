@@ -26,6 +26,7 @@
         </button>
         <nav class="primary-nav" id="primary-nav" aria-label="Ana menü">
             <a href="#cozumler">Çözümler</a>
+            <a href="#konut-paketi">Konut paketi</a>
             <a href="#urunler">Ürünler</a>
             <a href="#surec">Nasıl çalışıyoruz?</a>
             <a href="#sss">Sık sorulanlar</a>
@@ -110,6 +111,49 @@
             </div>
         </section>
 
+        <section class="home-package" id="konut-paketi" aria-labelledby="home-package-title">
+            <div class="package-copy">
+                <p class="eyebrow">250 kWh/AY ÜZERİ TÜKETİM İÇİN</p>
+                <h2 id="home-package-title">Gündüz güneş,<br><em>akşam hibrit destek.</em></h2>
+                <p>Ev tüketiminin önemli bölümünü gündüz güneşten karşılamayı; akşam saatlerinde bataryayı kullanmayı hedefleyen, şebeke destekli örnek konut sistemi.</p>
+                <ul class="package-benefits">
+                    <li><span aria-hidden="true">01</span> Gündüz üretimi önce evin anlık tüketimine yönlendirir.</li>
+                    <li><span aria-hidden="true">02</span> Uygun üretim fazlası bataryayı şarj eder.</li>
+                    <li><span aria-hidden="true">03</span> Batarya veya güneş yetersiz kaldığında şebeke devreye girer.</li>
+                </ul>
+                <a class="button button-primary" id="package-quote-link" href="#teklif">Bu paketi projem için değerlendirelim <span aria-hidden="true">↗</span></a>
+            </div>
+            <div class="package-card">
+                <div class="package-card-heading">
+                    <span>ÖRNEK KONUT HİBRİT PAKETİ</span>
+                    <span class="package-badge">ÖRNEK TASARIM</span>
+                </div>
+                <div class="package-specs">
+                    <article>
+                        <span class="package-icon" aria-hidden="true">↗</span>
+                        <span><small>Hibrit inverter</small><strong>6,2 kW</strong></span>
+                    </article>
+                    <article>
+                        <span class="package-icon" aria-hidden="true">☼</span>
+                        <span><small>Güneş paneli</small><strong>10 × 600 W <i>= 6 kWp</i></strong></span>
+                    </article>
+                    <article>
+                        <span class="package-icon" aria-hidden="true">▰</span>
+                        <span><small>Batarya</small><strong>5 kWh <i>nominal kapasite</i></strong></span>
+                    </article>
+                    <article>
+                        <span class="package-icon" aria-hidden="true">Ⅱ</span>
+                        <span><small>Örnek dizi planı</small><strong>2 × 5 panel <i>eşit seri sayısı</i></strong></span>
+                    </article>
+                </div>
+                <div class="package-evening">
+                    <span class="evening-indicator" aria-hidden="true"></span>
+                    <p><strong>Akşam kullanım hedefi: en az 5 saat</strong><br>Gerçek süre, bataryanın kullanılabilir kapasitesi ve evin akşam yüklerine göre hesaplanır. Gerekirse batarya kapasitesi büyütülür.</p>
+                </div>
+                <p class="package-caveat">5 kWh nominal batarya, her evde 5 saat çalışma garantisi vermez. İki dizi aynı panelden ve eşit seri sayısıyla tasarlanır; yönleri farklıysa ayrı MPPT girişleri değerlendirilir. İnverterin DC güç, gerilim/akım ve MPPT sınırlarıyla batarya uyumu teknik dokümanlardan doğrulanır. Montaj ve koruma ekipmanları saha keşfine göre belirlenir.</p>
+            </div>
+        </section>
+
         <section class="products-section" id="urunler">
             <div class="products-layout">
                 <div class="products-copy">
@@ -163,26 +207,35 @@
             <div class="calculator-intro">
                 <p class="eyebrow">İLK FİKİR İÇİN</p>
                 <h2>Yaklaşık sistem<br><em>gücünü hesapla.</em></h2>
-                <p>Aylık tüketimini ve günlük eşdeğer güneşlenme süresini gir. Bu basit ön hesap, sistem teklifi veya üretim garantisi değildir.</p>
-                <div class="calculation-note"><span aria-hidden="true">i</span><p>Hesap, 30 gün/ay ve 0,80 varsayımsal sistem performans katsayısını kullanır. Gerçek sonuç; konum, yön, eğim, gölge, sıcaklık, ekipman ve proje koşullarına göre değişir.</p></div>
+                <p>Aylık tüketimi günlük ihtiyaca çevirip sistemi kışın düşük üretim dönemini dikkate alarak ön boyutlandır. Bu hesap yaklaşık değer verir; teklif veya üretim garantisi değildir.</p>
+                <div class="calculation-note"><span aria-hidden="true">i</span><p>Ön hesapta ay 30 gün kabul edilir. Kış tasarım varsayımı olarak 1 kWp kurulu gücün en düşük üretim gününde yaklaşık 2 kWh ürettiği alınır. Panel adedi iki eşit dizi oluşturacak şekilde çift sayıya yuvarlanır; gerçek üretim ve inverterin dizi/MPPT sınırları proje özelinde doğrulanmalıdır.</p></div>
             </div>
             <div class="calculator-card">
                 <form id="solar-calculator">
                     <label for="monthly-usage">Aylık elektrik tüketimi <span>kWh/ay</span></label>
                     <input id="monthly-usage" name="monthlyUsage" type="number" min="1" max="1000000" step="1" value="600" required>
-                    <label for="sun-hours">Günlük eşdeğer güneşlenme <span>saat/gün</span></label>
-                    <input id="sun-hours" name="sunHours" type="number" min="0.5" max="12" step="0.1" value="4" required aria-describedby="sun-hours-help">
-                    <small id="sun-hours-help">Şehrinize ve proje sahasına göre bu değeri değiştirin.</small>
                     <label for="panel-power">Örnek panel gücü <span>W</span></label>
                     <input id="panel-power" name="panelPower" type="number" min="100" max="1000" step="10" value="550" required>
                     <button class="button button-primary calculate-button" type="submit">Ön hesapla <span aria-hidden="true">↗</span></button>
                 </form>
                 <div class="calculation-result" id="calculation-result" aria-live="polite">
-                    <p>Yaklaşık kurulu güç</p>
-                    <strong id="system-size">— <span>kWp</span></strong>
-                    <div class="result-divider"></div>
-                    <p>Örnek panel adedi</p>
-                    <strong id="panel-count">— <span>panel</span></strong>
+                    <div class="result-metric">
+                        <p>Günlük enerji ihtiyacı</p>
+                        <strong id="daily-usage">— <span>kWh/gün</span></strong>
+                    </div>
+                    <div class="result-metric">
+                        <p>Kış dönemine göre yaklaşık kurulu güç</p>
+                        <strong id="system-size">— <span>kWp</span></strong>
+                    </div>
+                    <div class="result-metric">
+                        <p>Seçilen panellerle kurulu güç</p>
+                        <strong id="installed-capacity">— <span>kWp</span></strong>
+                    </div>
+                    <div class="result-metric">
+                        <p>İki eşit dizi için panel adedi</p>
+                        <strong id="panel-count">— <span>panel</span></strong>
+                    </div>
+                    <p class="array-layout" id="array-layout">Dizi düzeni: —</p>
                     <small>Ön boyutlandırmadır; elektrik projesi ve saha incelemesinin yerini tutmaz.</small>
                 </div>
             </div>
@@ -244,6 +297,7 @@
                     <label for="project-type">Proje türü
                         <select id="project-type" name="projectType" required>
                             <option value="" selected disabled>Seçin</option>
+                            <option value="Konut hibrit paketi (6,2 kW / 6 kWp / 5 kWh)">Konut hibrit paketi (6,2 kW / 6 kWp / 5 kWh)</option>
                             <option>Konut çatısı</option>
                             <option>İşletme / fabrika</option>
                             <option>Arazi GES</option>
