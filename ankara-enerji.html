@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ankara için enerji türlerine göre üretim ve tüketim değerlerini düzenleyebileceğiniz etkileşimli enerji simülasyonu.">
+    <meta name="theme-color" content="#10191f">
+    <title>Ankara Enerji Simülasyonu | Fatih Uyanık</title>
+    <link rel="stylesheet" href="ankara-enerji.css">
+    <script src="ankara-enerji.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">İçeriğe geç</a>
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="Fatih Uyanık ana sayfa">FU<span>.</span></a>
+        <nav aria-label="Ana menü">
+            <a href="index.html">Anasayfa</a>
+            <a href="projeler.html">Projeler</a>
+            <a href="gunes-enerjisi.html">Güneş Enerjisi</a>
+            <a href="https://github.com/Fatih032" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="intro" aria-labelledby="page-title">
+            <p class="eyebrow">ETKİLEŞİMLİ ENERJİ PANOSU</p>
+            <h1 id="page-title">Ankara'nın enerji dengesi.</h1>
+            <p class="intro-copy">Farklı kaynaklardan üretimi ve enerji tüketimini değiştirerek şehrin enerji dengesinin nasıl etkilendiğini keşfedin.</p>
+            <p class="simulation-note"><span aria-hidden="true">ⓘ</span> Aşağıdaki harita ve enerji türü dağılımları simülasyondur. EPDK'nın 2025 yılı için yayımladığı gerçek Ankara tüketimi ve Türkiye üretim verileri ayrı bölümde gösterilir.</p>
+        </section>
+
+        <section class="panel official-data-panel" aria-labelledby="official-data-title">
+            <div class="section-heading official-data-heading">
+                <div>
+                    <p class="eyebrow">EPDK · 2025 YILLIK VERİLERİ</p>
+                    <h2 id="official-data-title">Resmî verilerle gerçek tablo</h2>
+                    <p class="section-copy">2025, yayımlanmış en güncel tamamlanmış yıllık dönemdir. Ankara tüketimi il toplamı; kaynaklara göre üretim ve kurulu güç Türkiye toplamıdır.</p>
+                </div>
+                <span class="map-badge"><i aria-hidden="true"></i> Son tamamlanan yıl: 2025</span>
+            </div>
+
+            <div class="official-highlights" aria-label="Ankara yıllık elektrik tüketimi">
+                <article class="official-highlight">
+                    <span>Ankara · 2025 tüketimi</span>
+                    <strong>17.136.683,5</strong>
+                    <small>MWh · faturalanan elektrik</small>
+                </article>
+                <article class="official-highlight">
+                    <span>Ankara · 2024 tüketimi</span>
+                    <strong>16.110.550,5</strong>
+                    <small>MWh · karşılaştırma dönemi</small>
+                </article>
+                <article class="official-highlight">
+                    <span>Yıllık değişim</span>
+                    <strong>+6,37%</strong>
+                    <small>2024 yılına göre</small>
+                </article>
+            </div>
+
+            <div class="official-data-grid">
+                <article class="official-data-card">
+                    <h3>Ankara tüketimi · tüketici türüne göre</h3>
+                    <p>2025 yılı, MWh</p>
+                    <div class="official-table-wrap">
+                        <table class="official-table">
+                            <caption class="visually-hidden">Ankara'nın 2025 yılı faturalanan elektrik tüketimi, tüketici türüne göre</caption>
+                            <thead>
+                                <tr><th scope="col">Tüketici türü</th><th scope="col">Tüketim (MWh)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><th scope="row">Aydınlatma</th><td>322.958,4</td></tr>
+                                <tr><th scope="row">Kamu ve özel hizmetler, diğer</th><td>6.078.722,3</td></tr>
+                                <tr><th scope="row">Mesken</th><td>5.499.702,7</td></tr>
+                                <tr><th scope="row">Sanayi</th><td>4.953.516,1</td></tr>
+                                <tr><th scope="row">Tarımsal faaliyetler</th><td>281.784,0</td></tr>
+                            </tbody>
+                            <tfoot>
+                                <tr><th scope="row">İl toplamı</th><td>17.136.683,5</td></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="official-data-card">
+                    <h3>Elektrik üretimi ve kurulu güç · Türkiye</h3>
+                    <p>2025 yılı · üretim GWh, kurulu güç MW</p>
+                    <div class="official-table-wrap">
+                        <table class="official-table">
+                            <caption class="visually-hidden">Türkiye'nin 2025 yılı elektrik üretimi ve kurulu gücü, enerji kaynağına göre</caption>
+                            <thead>
+                                <tr><th scope="col">Kaynak</th><th scope="col">Üretim (GWh)</th><th scope="col">Güç (MW)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><th scope="row">Hidroelektrik</th><td>57.207,2</td><td>32.296,4</td></tr>
+                                <tr><th scope="row">Güneş</th><td>36.428,2</td><td>25.800,9</td></tr>
+                                <tr><th scope="row">Rüzgâr</th><td>39.750,7</td><td>14.785,1</td></tr>
+                                <tr><th scope="row">Biyokütle</th><td>8.956,3</td><td>2.126,3</td></tr>
+                                <tr><th scope="row">Jeotermal</th><td>11.222,6</td><td>1.757,8</td></tr>
+                                <tr><th scope="row">Doğal gaz</th><td>79.085,9</td><td>24.161,6</td></tr>
+                                <tr><th scope="row">İthal kömür</th><td>76.591,7</td><td>10.455,8</td></tr>
+                                <tr><th scope="row">Linyit</th><td>38.430,7</td><td>10.244,2</td></tr>
+                                <tr><th scope="row">Taş kömürü</th><td>4.091,0</td><td>900,8</td></tr>
+                                <tr><th scope="row">Asfaltit</th><td>1.742,5</td><td>405,0</td></tr>
+                                <tr><th scope="row">Fuel oil</th><td>1.077,2</td><td>226,6</td></tr>
+                                <tr><th scope="row">Nafta</th><td>0,0</td><td>4,7</td></tr>
+                                <tr><th scope="row">LNG</th><td>0,0</td><td>2,0</td></tr>
+                                <tr><th scope="row">Motorin</th><td>0,1</td><td>1,0</td></tr>
+                            </tbody>
+                            <tfoot>
+                                <tr><th scope="row">Toplam</th><td>354.584,2</td><td>123.168,0</td></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </article>
+            </div>
+
+            <p class="official-data-note">EPDK, Ankara için il toplamı tüketimi yayımlıyor; Ankara'nın kaynak türlerine göre üretimi ve ilçe bazlı tüketim/üretim bu raporda yer almıyor. Bu nedenle haritadaki bölge ve enerji türü dağılımları gerçek ilçe verisi değil, düzenlenebilir simülasyondur. Üretim ve kurulu güç verileri lisanslı ve lisanssız tesisleri kapsar; tabloda yuvarlama yapılmıştır.</p>
+            <p class="official-data-source">Kaynak: <a href="https://www.epdk.gov.tr/Detay/Icerik/3-0-167/resmi-istatistikleri" target="_blank" rel="noopener noreferrer">EPDK Elektrik Piyasası Resmî İstatistikleri</a> · <a href="https://www.epdk.gov.tr/Detay/DownloadDocument?id=EOVnNPoSCCI=" target="_blank" rel="noopener noreferrer">2025 Yılı Elektrik Piyasası Gelişim Raporu Eki</a> (26 Haziran 2026).</p>
+        </section>
+
+        <section class="summary" aria-label="Simülasyon özeti">
+            <article class="summary-card">
+                <p>Toplam üretim</p>
+                <strong id="total-production">—</strong>
+                <span>MWh</span>
+            </article>
+            <article class="summary-card">
+                <p>Toplam tüketim</p>
+                <strong id="total-consumption">—</strong>
+                <span>MWh</span>
+            </article>
+            <article class="summary-card balance-card">
+                <p>Üretim - tüketim</p>
+                <strong id="energy-balance">—</strong>
+                <span id="balance-label">MWh</span>
+            </article>
+            <article class="summary-card">
+                <p>Karşılama oranı</p>
+                <strong id="coverage-rate">—</strong>
+                <span>üretim / tüketim</span>
+            </article>
+        </section>
+
+        <section class="panel map-panel" aria-labelledby="map-title">
+            <div class="section-heading map-heading">
+                <div>
+                    <p class="eyebrow">HARİTA ÜZERİNDE KEŞFET</p>
+                    <h2 id="map-title">Ankara enerji sahaları</h2>
+                    <p class="section-copy">Bir bölge seçin; üretim ve tüketim değerlerini değiştirerek toplam enerji dengesine etkisini görün.</p>
+                </div>
+                <span class="map-badge"><i aria-hidden="true"></i> 5 simülasyon bölgesi</span>
+            </div>
+            <div class="map-layout">
+                <div class="map-visual">
+                    <svg class="ankara-map" viewBox="0 0 600 540" role="group" aria-labelledby="map-svg-title map-svg-desc">
+                        <title id="map-svg-title">Ankara temsili enerji haritası</title>
+                        <desc id="map-svg-desc">Polatlı, Beypazarı, Kızılcahamam, merkez ve Şereflikoçhisar bölgelerini seçmek için etkileşimli harita.</desc>
+                        <defs>
+                            <linearGradient id="region-fill" x1="0" x2="1" y1="0" y2="1">
+                                <stop offset="0" stop-color="#214c49"></stop>
+                                <stop offset="1" stop-color="#182e36"></stop>
+                            </linearGradient>
+                            <pattern id="map-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+                                <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#bce8dc" stroke-opacity=".06" stroke-width="1"></path>
+                            </pattern>
+                            <clipPath id="ankara-clip">
+                                <path d="M126 54 175 37 220 49 259 32 302 48 344 35 384 52 426 47 451 71 490 76 501 105 534 121 526 155 545 184 524 213 535 244 513 270 529 303 503 328 512 359 482 381 486 414 454 430 436 461 405 459 383 489 349 479 321 500 287 481 250 493 230 464 194 467 176 438 143 430 130 400 98 387 106 354 79 328 96 298 72 268 90 239 77 207 101 179 91 146 117 126 107 92 130 78Z"></path>
+                            </clipPath>
+                        </defs>
+                        <path class="map-shadow" d="M126 54 175 37 220 49 259 32 302 48 344 35 384 52 426 47 451 71 490 76 501 105 534 121 526 155 545 184 524 213 535 244 513 270 529 303 503 328 512 359 482 381 486 414 454 430 436 461 405 459 383 489 349 479 321 500 287 481 250 493 230 464 194 467 176 438 143 430 130 400 98 387 106 354 79 328 96 298 72 268 90 239 77 207 101 179 91 146 117 126 107 92 130 78Z"></path>
+                        <g clip-path="url(#ankara-clip)">
+                            <rect x="60" y="20" width="500" height="500" fill="url(#region-fill)"></rect>
+                            <rect x="60" y="20" width="500" height="500" fill="url(#map-grid)"></rect>
+                            <path class="map-contour" d="M61 162 Q180 123 265 160 T548 135 M63 205 Q185 172 273 204 T550 183 M64 333 Q190 286 286 326 T540 286 M80 371 Q204 333 301 367 T523 333 M105 422 Q230 385 326 419 T493 387"></path>
+                            <path class="map-road" d="M154 243 Q230 263 318 264 T455 224 M318 264 Q276 310 219 376 M318 264 Q326 174 306 105 M318 264 Q393 331 431 408"></path>
+                            <path class="map-road map-road-secondary" d="M151 243 Q242 205 306 105 M219 376 Q321 362 431 408 M306 105 Q396 154 455 224"></path>
+                            <path class="district-line" d="M235 65 Q250 150 232 215 M355 56 Q348 139 371 197 M111 284 Q202 292 258 248 M276 302 Q333 333 364 386 M379 247 Q451 268 507 255 M274 411 Q284 447 278 477"></path>
+                        </g>
+                        <path class="map-outline" d="M126 54 175 37 220 49 259 32 302 48 344 35 384 52 426 47 451 71 490 76 501 105 534 121 526 155 545 184 524 213 535 244 513 270 529 303 503 328 512 359 482 381 486 414 454 430 436 461 405 459 383 489 349 479 321 500 287 481 250 493 230 464 194 467 176 438 143 430 130 400 98 387 106 354 79 328 96 298 72 268 90 239 77 207 101 179 91 146 117 126 107 92 130 78Z"></path>
+                        <text class="map-region-title" x="306" y="322">ANKARA</text>
+                        <text class="map-region-subtitle" x="306" y="342">İL ENERJİ SİMÜLASYONU</text>
+                        <g class="map-marker is-selected" data-location="merkez" role="button" tabindex="0" aria-pressed="true" aria-label="Ankara Merkez bölgesini seç">
+                            <circle class="marker-halo" cx="318" cy="264" r="25"></circle><circle class="marker-dot" cx="318" cy="264" r="8"></circle>
+                            <rect class="marker-label-bg" x="335" y="248" width="88" height="27" rx="8"></rect><text class="marker-label" x="347" y="266">Merkez</text>
+                        </g>
+                        <g class="map-marker" data-location="kizilcahamam" role="button" tabindex="0" aria-pressed="false" aria-label="Kızılcahamam bölgesini seç">
+                            <circle class="marker-halo" cx="306" cy="105" r="20"></circle><circle class="marker-dot" cx="306" cy="105" r="7"></circle>
+                            <rect class="marker-label-bg" x="321" y="88" width="119" height="27" rx="8"></rect><text class="marker-label" x="332" y="106">Kızılcahamam</text>
+                        </g>
+                        <g class="map-marker" data-location="beypazari" role="button" tabindex="0" aria-pressed="false" aria-label="Beypazarı bölgesini seç">
+                            <circle class="marker-halo" cx="154" cy="243" r="20"></circle><circle class="marker-dot" cx="154" cy="243" r="7"></circle>
+                            <rect class="marker-label-bg" x="103" y="266" width="88" height="27" rx="8"></rect><text class="marker-label" x="115" y="284">Beypazarı</text>
+                        </g>
+                        <g class="map-marker" data-location="polatli" role="button" tabindex="0" aria-pressed="false" aria-label="Polatlı bölgesini seç">
+                            <circle class="marker-halo" cx="219" cy="376" r="20"></circle><circle class="marker-dot" cx="219" cy="376" r="7"></circle>
+                            <rect class="marker-label-bg" x="155" y="392" width="72" height="27" rx="8"></rect><text class="marker-label" x="168" y="410">Polatlı</text>
+                        </g>
+                        <g class="map-marker" data-location="sereflikochisar" role="button" tabindex="0" aria-pressed="false" aria-label="Şereflikoçhisar bölgesini seç">
+                            <circle class="marker-halo" cx="431" cy="408" r="20"></circle><circle class="marker-dot" cx="431" cy="408" r="7"></circle>
+                            <rect class="marker-label-bg" x="356" y="429" width="137" height="27" rx="8"></rect><text class="marker-label" x="367" y="447">Şereflikoçhisar</text>
+                        </g>
+                        <g class="map-compass" aria-hidden="true">
+                            <text x="507" y="83">K</text><path d="M511 91v22m-5-7 5 7 5-7"></path>
+                        </g>
+                    </svg>
+                    <div class="map-legend" aria-label="Harita açıklaması">
+                        <span><i class="legend-selected" aria-hidden="true"></i> Seçili bölge</span>
+                        <span><i class="legend-other" aria-hidden="true"></i> Diğer bölgeler</span>
+                    </div>
+                </div>
+                <aside class="location-panel" aria-labelledby="selected-location-name">
+                    <div class="location-heading">
+                        <span class="location-kicker">SEÇİLİ BÖLGE</span>
+                        <h3 id="selected-location-name">Ankara Merkez</h3>
+                        <p id="location-description">Şehir merkezi ve çevresindeki örnek enerji dengesi.</p>
+                    </div>
+                    <div class="location-totals">
+                        <div><span>Üretim</span><strong id="location-production">—</strong><small>MWh</small></div>
+                        <div><span>Tüketim</span><strong id="location-consumption">—</strong><small>MWh</small></div>
+                    </div>
+                    <p class="location-edit-label">Kaynağa göre MWh <span>değerleri düzenlenebilir</span></p>
+                    <div class="location-sources" id="location-sources"></div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="panel solar-day-panel" aria-labelledby="solar-day-title">
+            <div class="section-heading solar-day-heading">
+                <div>
+                    <p class="eyebrow">GÜN İÇİ ÜRETİM SİMÜLASYONU</p>
+                    <h2 id="solar-day-title">Güneş doğar, üretim yükselir.</h2>
+                    <p class="section-copy">Saatlik üretim eğrisini ve güneşin tüketimi karşılayamadığı saatlerde şebekeden alınan enerjiyi inceleyin.</p>
+                </div>
+                <span class="solar-day-badge"><span aria-hidden="true">☀</span> Örnek açık-gökyüzü profili</span>
+            </div>
+            <div class="solar-day-layout">
+                <div class="solar-chart-card">
+                    <div class="solar-chart-heading">
+                        <div>
+                            <span class="chart-overline">GÜNEŞ ÜRETİM EĞRİSİ</span>
+                            <strong id="solar-chart-peak">—</strong>
+                        </div>
+                        <div class="solar-chart-totals">
+                            <span class="chart-unit">Tepe güç · MW</span>
+                            <span class="daily-total">Günlük <strong id="daily-solar-energy">—</strong> MWh</span>
+                        </div>
+                    </div>
+                    <div class="solar-chart-scroll">
+                        <svg class="solar-chart" id="solar-chart" viewBox="0 0 760 310" role="img" aria-label="Saatlere göre güneş enerjisi üretim eğrisi">
+                            <defs>
+                                <linearGradient id="solar-area-gradient" x1="0" x2="0" y1="0" y2="1">
+                                    <stop offset="0" stop-color="#f3ba68" stop-opacity=".34"></stop>
+                                    <stop offset="1" stop-color="#f3ba68" stop-opacity=".015"></stop>
+                                </linearGradient>
+                            </defs>
+                            <g class="chart-grid-lines" aria-hidden="true">
+                                <line x1="58" y1="35" x2="730" y2="35"></line>
+                                <line x1="58" y1="90" x2="730" y2="90"></line>
+                                <line x1="58" y1="145" x2="730" y2="145"></line>
+                                <line x1="58" y1="200" x2="730" y2="200"></line>
+                                <line x1="58" y1="255" x2="730" y2="255"></line>
+                            </g>
+                            <g class="chart-y-labels" aria-hidden="true">
+                                <text x="48" y="39" text-anchor="end" id="y-label-100">—</text>
+                                <text x="48" y="94" text-anchor="end" id="y-label-75">—</text>
+                                <text x="48" y="149" text-anchor="end" id="y-label-50">—</text>
+                                <text x="48" y="204" text-anchor="end" id="y-label-25">—</text>
+                                <text x="48" y="259" text-anchor="end">0 MW</text>
+                            </g>
+                            <rect class="peak-window" x="338" y="35" width="140" height="220" rx="8" aria-hidden="true"></rect>
+                            <text class="peak-window-label" x="408" y="52" text-anchor="middle" aria-hidden="true">10:00–15:00</text>
+                            <path class="solar-area" id="solar-area"></path>
+                            <path class="solar-line" id="solar-line"></path>
+                            <line class="selected-hour-line" id="selected-hour-line" x1="0" y1="35" x2="0" y2="255"></line>
+                            <circle class="selected-hour-point" id="selected-hour-point" cx="0" cy="0" r="6"></circle>
+                            <g class="chart-x-labels" aria-hidden="true">
+                                <text x="58" y="281">00</text>
+                                <text x="198" y="281">05</text>
+                                <text x="338" y="281">10</text>
+                                <text x="478" y="281">15</text>
+                                <text x="618" y="281">20</text>
+                                <text x="730" y="281" text-anchor="end">24</text>
+                            </g>
+                            <text class="sun-time-label" x="226" y="300" text-anchor="middle">GÜN DOĞUMU · 06:00</text>
+                            <text class="sun-time-label" x="590" y="300" text-anchor="middle">GÜN BATIMI · 19:00</text>
+                        </svg>
+                    </div>
+                    <div class="hour-control">
+                        <div class="control-label-row">
+                            <label for="simulation-hour">Simülasyon saati</label>
+                            <output id="simulation-hour-label" for="simulation-hour">12:00–13:00</output>
+                        </div>
+                        <input id="simulation-hour" type="range" min="0" max="23" value="12" step="1">
+                        <div class="range-ends" aria-hidden="true"><span>00:00</span><span>23:00</span></div>
+                    </div>
+                </div>
+
+                <aside class="solar-controls-card" aria-label="Güneş senaryosu ayarları ve saatlik sonuç">
+                    <div class="scenario-heading">
+                        <span class="chart-overline">SENARYO AYARLARI</span>
+                        <span class="scenario-live"><i aria-hidden="true"></i> Canlı simülasyon</span>
+                    </div>
+                    <label class="range-control" for="solar-capacity">
+                        <span class="control-label-row"><span>Kurulu güneş gücü</span><strong id="solar-capacity-label">100 MW</strong></span>
+                        <input id="solar-capacity" type="range" min="20" max="200" value="100" step="5">
+                    </label>
+                    <label class="range-control" for="solar-irradiance">
+                        <span class="control-label-row"><span>Güneş ışınımı</span><strong id="solar-irradiance-label">%100</strong></span>
+                        <input id="solar-irradiance" type="range" min="0" max="100" value="100" step="5">
+                    </label>
+                    <div class="scenario-presets" aria-label="Hazır üretim senaryoları">
+                        <button type="button" data-irradiance="100" aria-pressed="true">Güneşli</button>
+                        <button type="button" data-irradiance="50" aria-pressed="false">Bulutlu</button>
+                        <button type="button" data-irradiance="15" aria-pressed="false">Düşük üretim</button>
+                    </div>
+                    <label class="range-control demand-control" for="hourly-demand">
+                        <span class="control-label-row"><span>Saatlik tüketim</span><strong id="hourly-demand-label">60 MWh</strong></span>
+                        <input id="hourly-demand" type="range" min="5" max="120" value="60" step="5">
+                    </label>
+                    <div class="hourly-result" aria-live="polite">
+                        <div class="hourly-result-heading">
+                            <span>SEÇİLİ SAATTE</span>
+                            <strong id="hourly-result-time">12:00–13:00</strong>
+                        </div>
+                        <div class="result-row"><span>Güneşten üretilen</span><strong id="hourly-solar-energy">—</strong></div>
+                        <div class="result-row"><span>Tüketim</span><strong id="hourly-consumption">—</strong></div>
+                        <div class="result-row grid-result"><span id="grid-flow-label">Şebekeden alınan</span><strong id="grid-flow-value">—</strong></div>
+                        <p class="hourly-status" id="hourly-status"></p>
+                    </div>
+                    <p class="model-note">Basitleştirilmiş, şebekeye bağlı bir saatlik modeldir. Üretim tüketimi aşarsa fazla enerji şebekeye aktarılır; yetmezse fark şebekeden karşılanır. Depolama ve hava tahmini hesaba katılmaz.</p>
+                </aside>
+            </div>
+            <p class="solar-chart-note">Örnek eğri parabolik bir günlük profildir: üretim 06:00'da başlar, 19:00'da biter; tepe noktası öğle saatlerindedir. Değerler gerçek ölçüm değildir.</p>
+        </section>
+
+        <section class="panel comparison-panel" aria-labelledby="comparison-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">GENEL GÖRÜNÜM</p>
+                    <h2 id="comparison-title">Üretim ve tüketim</h2>
+                </div>
+                <div class="chart-legend" aria-label="Grafik açıklaması">
+                    <span><i class="legend-production" aria-hidden="true"></i> Üretim</span>
+                    <span><i class="legend-consumption" aria-hidden="true"></i> Tüketim</span>
+                </div>
+            </div>
+            <div class="comparison-chart" role="img" aria-label="Toplam üretim ve tüketim karşılaştırması">
+                <div class="chart-line">
+                    <span>Üretim</span>
+                    <div class="bar-track"><div class="bar bar-production" id="production-bar"></div></div>
+                    <strong id="production-chart-value">—</strong>
+                </div>
+                <div class="chart-line">
+                    <span>Tüketim</span>
+                    <div class="bar-track"><div class="bar bar-consumption" id="consumption-bar"></div></div>
+                    <strong id="consumption-chart-value">—</strong>
+                </div>
+            </div>
+            <p class="chart-caption">Çubuk uzunlukları, seçili senaryodaki en yüksek toplam değere göre ölçeklenir.</p>
+        </section>
+
+        <div class="simulation-actions">
+            <p class="input-error" id="input-error" role="status" aria-live="polite"></p>
+            <button class="reset-button" id="reset-simulation" type="button">Tüm bölgeleri örnek değerlere döndür</button>
+        </div>
+
+        <p class="page-footer"><a href="projeler.html">← Projelere dön</a></p>
+    </main>
+</body>
+</html>
