@@ -2,20 +2,15 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+This repository does not publish versioned releases. Security fixes are
+applied to the current version on the default branch.
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+Please report security vulnerabilities privately through GitHub's
+[private vulnerability reporting](https://github.com/Fatih032/Fatih032.github.io/security/advisories/new)
+if it is enabled for this repository. Otherwise, email
+[fatih03uyanik@gmail.com](mailto:fatih03uyanik@gmail.com).
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Please include enough detail to reproduce the issue and its potential impact.
+Please avoid disclosing the issue publicly until it has been investigated.
