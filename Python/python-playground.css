@@ -1,0 +1,143 @@
+.python-playground {
+    width: 100%;
+    max-width: 900px;
+    margin: 24px auto;
+    padding: 20px;
+    border: 1px solid #d5dfe5;
+    border-radius: 12px;
+    background: #f7fafb;
+    color: #17252d;
+    box-shadow: 0 4px 18px rgba(13, 47, 61, 0.08);
+}
+
+.python-playground-intro {
+    margin: 0 0 16px;
+    color: #42535d;
+    line-height: 1.6;
+}
+
+.python-playground-label {
+    display: block;
+    margin: 16px 0 8px;
+    color: #173c4a;
+    font-weight: 700;
+}
+
+.python-code,
+.python-input {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #bdcbd2;
+    border-radius: 8px;
+    background: #10232c;
+    color: #edf6f5;
+    font: 14px/1.55 Consolas, "Courier New", monospace;
+    resize: vertical;
+    tab-size: 4;
+}
+
+.python-code {
+    min-height: 320px;
+}
+
+.python-input {
+    min-height: 76px;
+}
+
+.python-code:focus-visible,
+.python-input:focus-visible,
+.python-playground button:focus-visible,
+.python-output:focus-visible {
+    outline: 3px solid #178f80;
+    outline-offset: 2px;
+}
+
+.python-playground-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.python-playground button {
+    min-height: 42px;
+    padding: 9px 16px;
+    border: 0;
+    border-radius: 7px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.python-run-button {
+    background: #0d6b61;
+    color: white;
+}
+
+.python-run-button:hover:not(:disabled) {
+    background: #09574f;
+}
+
+.python-reset-button {
+    background: #e2e9ed;
+    color: #173c4a;
+}
+
+.python-reset-button:hover {
+    background: #d3dfe5;
+}
+
+.python-playground button:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+.python-playground-status {
+    min-height: 1.5em;
+    margin: 14px 0 8px;
+    color: #42535d;
+}
+
+.python-playground .python-output {
+    min-height: 90px;
+    max-height: 320px;
+    overflow: auto;
+    margin: 0;
+    padding: 14px;
+    border-radius: 8px;
+    background: #10232c;
+    color: #d7f4df;
+    font: 14px/1.55 Consolas, "Courier New", monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+    body .row {
+        display: block;
+        margin: 0;
+    }
+
+    body .row > .left {
+        width: 100%;
+        margin: 0;
+        padding: 15px;
+    }
+
+    body .row > .container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 15px;
+    }
+
+    .python-playground {
+        padding: 14px;
+    }
+
+    .python-code {
+        min-height: 280px;
+        font-size: 13px;
+    }
+}
