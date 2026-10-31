@@ -201,3 +201,57 @@ nav {
     padding: 7px 18px;
 }
 
+.energy-cta {
+    display: flex;
+    width: 100%;
+    margin: 20px 0 16px;
+    padding: 13px 15px;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 8px;
+    color: #173c32;
+    background: rgba(248, 255, 224, 0.9);
+    text-align: left;
+    text-decoration: none;
+    transition: transform 180ms ease, background 180ms ease;
+}
+
+.energy-cta:hover {
+    transform: translateY(-2px);
+    color: #173c32;
+    background: #f6ffd9;
+}
+
+.energy-cta-icon {
+    font-size: 25px;
+    line-height: 1;
+}
+
+.energy-cta strong,
+.energy-cta small {
+    display: block;
+}
+
+.energy-cta strong {
+    font-size: 13px;
+}
+
+.energy-cta small {
+    margin-top: 2px;
+    font-size: 10px;
+}
+
+.energy-cta-arrow {
+    margin-left: auto;
+    font-size: 19px;
+}
+
+@media (max-width: 560px) {
+    .box {
+        box-sizing: border-box;
+        width: calc(100% - 32px);
+        max-width: 450px;
+        padding: 32px 24px;
+    }
+}

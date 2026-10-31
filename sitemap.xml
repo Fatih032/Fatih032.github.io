@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"> 
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-  <loc>https://fatih032.github.io/index.html</loc>
+  <loc>https://fatih032.github.io/</loc>
 </url>
 <url>
   <loc>https://fatih032.github.io/Python/python.html</loc>
@@ -10,12 +10,15 @@
   <loc>https://fatih032.github.io/Java/armstrong.html</loc>
 </url>
 <url>
-  <loc>https://fatih032.github.io/Oryantiring\OriClock\OriClock.html</loc>
+  <loc>https://fatih032.github.io/Oryantiring/OriClock/OriClock.html</loc>
 </url>
 <url>
-  <loc>https://fatih032.github.io/hipotünüs.html</loc>
+  <loc>https://fatih032.github.io/hipot%C3%BCn%C3%BCs.html</loc>
 </url>
 <url>
-  <loc>https://fatih032.github.io/çokgenÇizdirme/çokgen.html</loc>
+  <loc>https://fatih032.github.io/projeler.html</loc>
+</url>
+<url>
+  <loc>https://fatih032.github.io/gunes-enerjisi.html</loc>
 </url>
 </urlset>
