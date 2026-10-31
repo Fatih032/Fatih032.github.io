@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Üretim ve tüketim noktalarından başlayarak elektrik şebekesini adım adım kurun.">
+    <meta name="theme-color" content="#10191f">
+    <title>Enerji Ağı Atölyesi | Fatih Uyanık</title>
+    <link rel="stylesheet" href="enerji-agi.css">
+    <script src="enerji-agi.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">İçeriğe geç</a>
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="Fatih Uyanık ana sayfa">FU<span>.</span></a>
+        <nav aria-label="Ana menü">
+            <a href="index.html">Anasayfa</a>
+            <a href="projeler.html" aria-current="page">Projeler</a>
+            <a href="gunes-enerjisi.html">Güneş Enerjisi</a>
+            <a href="https://github.com/Fatih032" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="intro" aria-labelledby="page-title">
+            <p class="eyebrow">ADIM ADIM ELEKTRİK ŞEBEKESİ</p>
+            <h1 id="page-title">Enerji ağını birlikte kuralım.</h1>
+            <p class="intro-copy">Elektrik şebekesini adım adım kuruyoruz. İlk aşamada üretim ve tüketim noktalarını belirledik; şimdi üretim noktasının içindeki enerji yolunu görselleştiriyoruz.</p>
+        </section>
+
+        <section class="builder" aria-labelledby="builder-title">
+            <div class="builder-heading">
+                <div>
+                    <p class="eyebrow">AŞAMA 01 · NOKTALAR</p>
+                    <h2 id="builder-title">Üretim ve tüketim noktaları</h2>
+                </div>
+                <span class="stage-badge"><i aria-hidden="true"></i> Başlangıç modeli</span>
+            </div>
+
+            <div class="network-board" aria-label="Üretim ve tüketim noktalarının genel görünümü">
+                <section class="point-zone production-zone" aria-labelledby="production-title">
+                    <div class="zone-heading">
+                        <div>
+                            <span class="zone-kicker">KAYNAK</span>
+                            <h3 id="production-title">Üretim</h3>
+                        </div>
+                        <span class="point-count" id="production-count" aria-live="polite">1 nokta</span>
+                    </div>
+                    <div class="point-list" id="production-points"></div>
+                    <button class="add-point-button" id="add-production" type="button">
+                        <span aria-hidden="true">+</span> Üretim noktası ekle
+                    </button>
+                </section>
+
+                <div class="unbuilt-link" aria-label="Henüz bağlantı ekipmanı eklenmedi">
+                    <span class="link-node" aria-hidden="true"></span>
+                    <span class="link-line" aria-hidden="true"></span>
+                    <span class="link-node" aria-hidden="true"></span>
+                    <p>Üretim zinciri aşağıda gösteriliyor</p>
+                </div>
+
+                <section class="point-zone consumption-zone" aria-labelledby="consumption-title">
+                    <div class="zone-heading">
+                        <div>
+                            <span class="zone-kicker">YÜK</span>
+                            <h3 id="consumption-title">Tüketim</h3>
+                        </div>
+                        <span class="point-count" id="consumption-count" aria-live="polite">1 nokta</span>
+                    </div>
+                    <div class="point-list" id="consumption-points"></div>
+                    <button class="add-point-button" id="add-consumption" type="button">
+                        <span aria-hidden="true">+</span> Tüketim noktası ekle
+                    </button>
+                </section>
+            </div>
+
+            <p class="model-note">Üretim ve tüketim noktalarına güç değerleri girerek toplam üretimin toplam talebi karşılayıp karşılamadığını gözlemleyebilirsin.</p>
+        </section>
+
+        <section class="production-chain" aria-labelledby="production-chain-title">
+            <div class="chain-heading">
+                <div>
+                    <p class="eyebrow">AŞAMA 02 · ÜRETİMİ AÇ</p>
+                    <h2 id="production-chain-title">Güneş panelinden şebekeye</h2>
+                    <p class="chain-intro">Panelin ürettiği elektrik, şebekeye bağlanmadan önce bu ekipmanlardan geçer.</p>
+                </div>
+                <span class="chain-badge"><i aria-hidden="true"></i> Şematik akış</span>
+            </div>
+
+            <ol class="chain-flow" aria-label="Güneş enerjisi üretim ekipmanları ve enerji akışı">
+                <li class="chain-step">
+                    <div class="equipment-card panel-card">
+                        <span class="equipment-index">01</span>
+                        <svg class="equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <circle cx="73" cy="14" r="8"></circle>
+                            <path d="M73 1v-1M73 27v-1M60 14h-2M88 14h-2M64 5l-2-2M84 25l-2-2M82 5l2-2M62 25l2-2"></path>
+                            <path d="m15 26 58-8 12 35-58 8zM27 29l8 29M42 27l8 29M57 25l8 29M21 43l58-8M25 51l58-8M47 58l-2 12M65 55l2 12M37 70h40"></path>
+                        </svg>
+                        <span class="equipment-type">ÜRETİM</span>
+                        <h3>Güneş panelleri</h3>
+                        <p>Işık enerjisini doğru akım elektriğe dönüştürür.</p>
+                        <span class="output-chip dc-chip">Çıkış · DC</span>
+                    </div>
+                </li>
+                <li class="chain-connector" aria-label="Doğru akım bağlantısı">
+                    <span class="connector-line" aria-hidden="true"></span>
+                    <span class="connector-label">DC</span>
+                </li>
+                <li class="chain-step">
+                    <div class="equipment-card inverter-card">
+                        <span class="equipment-index">02</span>
+                        <svg class="equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <rect x="22" y="7" width="52" height="62" rx="8"></rect>
+                            <path d="M35 21h26M35 29h15"></path>
+                            <path d="m54 38-9 12h8l-3 9 11-14h-8l3-7z"></path>
+                            <circle cx="63" cy="22" r="2"></circle>
+                        </svg>
+                        <span class="equipment-type">DÖNÜŞÜM</span>
+                        <h3>İnverter</h3>
+                        <p>Panellerden gelen doğru akımı şebeke uyumlu alternatif akıma çevirir.</p>
+                        <span class="output-chip ac-chip">Çıkış · AC</span>
+                    </div>
+                </li>
+                <li class="chain-connector" aria-label="Alternatif akım bağlantısı">
+                    <span class="connector-line" aria-hidden="true"></span>
+                    <span class="connector-label">AC</span>
+                </li>
+                <li class="chain-step">
+                    <div class="equipment-card board-card">
+                        <span class="equipment-index">03</span>
+                        <svg class="equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <rect x="17" y="9" width="62" height="58" rx="5"></rect>
+                            <path d="M27 21h42M27 31h42M27 41h42M27 51h42"></path>
+                            <circle cx="35" cy="21" r="2"></circle>
+                            <circle cx="57" cy="31" r="2"></circle>
+                            <circle cx="43" cy="41" r="2"></circle>
+                            <circle cx="62" cy="51" r="2"></circle>
+                            <path d="M28 59h40"></path>
+                        </svg>
+                        <span class="equipment-type">KORUMA VE DAĞITIM</span>
+                        <h3>AC pano</h3>
+                        <p>Üretim çıkışını toplar; devre koruması ve bağlantıyı sağlar.</p>
+                        <span class="output-chip ac-chip">Akım · AC</span>
+                    </div>
+                </li>
+                <li class="chain-connector" aria-label="Alternatif akım bağlantısı">
+                    <span class="connector-line" aria-hidden="true"></span>
+                    <span class="connector-label">AC</span>
+                </li>
+                <li class="chain-step">
+                    <div class="equipment-card transformer-card">
+                        <span class="equipment-index">04</span>
+                        <svg class="equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <path d="M48 13v10M48 55v10M32 23v32M64 23v32"></path>
+                            <path d="M32 27c-11 0-11 12 0 12s11 12 0 12M64 27c11 0 11 12 0 12s-11 12 0 12"></path>
+                            <path d="M22 23h52M22 55h52M26 65h44M35 65v5M61 65v5"></path>
+                            <path d="M20 70h56"></path>
+                        </svg>
+                        <span class="equipment-type">GERİLİM DÖNÜŞÜMÜ</span>
+                        <h3>Yükseltici trafo</h3>
+                        <p>Üretilen elektriğin gerilimini bağlantı seviyesine uygun hâle getirir.</p>
+                        <span class="output-chip mv-chip">Şebeke bağlantısı</span>
+                    </div>
+                </li>
+            </ol>
+
+            <div class="chain-endpoint" aria-label="Şebeke iletim sistemine çıkış">
+                <span class="endpoint-dot" aria-hidden="true"></span>
+                <span>Şebeke iletim sistemine çıkış</span>
+                <span class="endpoint-next">Aşama 03 · İletim ve dağıtım</span>
+            </div>
+            <p class="model-note">Bu çizim çalışma prensibini anlatan şematik bir örnektir; ekipman değerleri ve şebeke gerilim seviyeleri projeye göre değişir.</p>
+        </section>
+
+        <section class="grid-chain" aria-labelledby="grid-chain-title">
+            <div class="chain-heading">
+                <div>
+                    <p class="eyebrow">AŞAMA 03 · İLETİM VE DAĞITIM</p>
+                    <h2 id="grid-chain-title">Santralden evin şebeke girişine</h2>
+                    <p class="chain-intro">Enerji yüksek gerilim ile taşınır, kademeli olarak dağıtım seviyesine indirilir ve ev bağlantısına ulaşır.</p>
+                </div>
+                <span class="grid-badge"><i aria-hidden="true"></i> Şebeke yolu</span>
+            </div>
+
+            <div class="grid-entry" aria-label="Üretim trafosundan şalt merkezine enerji akışı">
+                <span class="grid-entry-line flow-connector" aria-hidden="true"></span>
+                <span>Yükseltici trafodan gelen enerji</span>
+            </div>
+
+            <ol class="grid-route-row" aria-label="Yüksek gerilim iletim yolu">
+                <li class="grid-route-step">
+                    <article class="grid-equipment switchyard-card">
+                        <span class="grid-step-number">05</span>
+                        <svg class="grid-equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <path d="M17 61h62M25 61V36M48 61V23M71 61V36M20 36h56M17 23h62"></path>
+                            <path d="M25 36V23M48 23V12M71 36V23M31 36v9M42 36v9M54 36v9M65 36v9"></path>
+                            <circle cx="25" cy="23" r="3"></circle><circle cx="48" cy="12" r="3"></circle><circle cx="71" cy="23" r="3"></circle>
+                            <path d="M31 45h11M54 45h11M48 15v8M25 26v10M71 26v10"></path>
+                            <path d="M48 61v9M33 70h30"></path>
+                        </svg>
+                        <span class="grid-equipment-type">SANTRAL ÇIKIŞI</span>
+                        <h3>Şalt merkezi</h3>
+                        <p>Üretim ünitesini iletim şebekesine bağlar; anahtarlama ve koruma sağlar.</p>
+                        <span class="grid-level">Bağlantı ve koruma</span>
+                    </article>
+                </li>
+                <li class="grid-route-connector flow-connector" aria-label="Yüksek gerilim iletimi">
+                    <span class="grid-connector-line" aria-hidden="true"></span>
+                    <span class="grid-connector-label">YG</span>
+                </li>
+                <li class="grid-route-step">
+                    <article class="grid-equipment transmission-card">
+                        <span class="grid-step-number">06</span>
+                        <svg class="grid-equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <path d="M48 9 26 69M48 9l22 60M31 55h34M35 44h26M39 33h18M43 22h10M21 69h54"></path>
+                            <path d="M26 27H9M70 27h17M30 37H5M66 37h25M34 47H1M62 47h33"></path>
+                            <path d="M13 27v-5M83 27v-5M9 37v-5M87 37v-5M5 47v-5M91 47v-5"></path>
+                        </svg>
+                        <span class="grid-equipment-type">UZUN MESAFE</span>
+                        <h3>İletim hattı</h3>
+                        <p>Elektriği üretim bölgesinden şebeke merkezlerine taşır.</p>
+                        <span class="grid-level">Yüksek gerilim · YG</span>
+                    </article>
+                </li>
+                <li class="grid-route-connector flow-connector" aria-label="Yüksek gerilim bağlantısı">
+                    <span class="grid-connector-line" aria-hidden="true"></span>
+                    <span class="grid-connector-label">YG</span>
+                </li>
+                <li class="grid-route-step">
+                    <article class="grid-equipment receiving-card">
+                        <span class="grid-step-number">07</span>
+                        <svg class="grid-equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <path d="M14 61h68M22 61V31h52v30M18 31h60M28 31V19h40v12"></path>
+                            <path d="M35 41c-9 0-9 12 0 12s9 8 0 8M61 41c9 0 9 12 0 12s-9 8 0 8"></path>
+                            <path d="M48 19V9M42 9h12M30 31v-9M66 31v-9"></path>
+                            <circle cx="30" cy="19" r="2"></circle><circle cx="66" cy="19" r="2"></circle>
+                            <path d="M33 61v7M63 61v7M27 68h42"></path>
+                        </svg>
+                        <span class="grid-equipment-type">GERİLİM DÜŞÜRME</span>
+                        <h3>İndirici merkez</h3>
+                        <p>İletim gerilimini dağıtım şebekesinin seviyesine düşürür.</p>
+                        <span class="grid-level">YG → OG</span>
+                    </article>
+                </li>
+                <li class="grid-route-connector flow-connector" aria-label="Orta gerilim bağlantısı">
+                    <span class="grid-connector-line" aria-hidden="true"></span>
+                    <span class="grid-connector-label">OG</span>
+                </li>
+                <li class="grid-route-step">
+                    <article class="grid-equipment distribution-center-card">
+                        <span class="grid-step-number">08</span>
+                        <svg class="grid-equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <path d="M18 67V24l30-15 30 15v43"></path>
+                            <path d="M12 67h72M28 31h9v10h-9zM59 31h9v10h-9zM28 49h9v10h-9zM59 49h9v10h-9z"></path>
+                            <path d="M44 67V50h8v17M33 9h30M38 9V3M58 9V3"></path>
+                            <path d="M22 19h52"></path>
+                        </svg>
+                        <span class="grid-equipment-type">DAĞITIM DÜĞÜMÜ</span>
+                        <h3>Dağıtım merkezi · DM</h3>
+                        <p>Orta gerilim fiderleri üzerinden enerjiyi farklı bölgelere dağıtır.</p>
+                        <span class="grid-level">Orta gerilim · OG</span>
+                    </article>
+                </li>
+            </ol>
+
+            <div class="route-turn" aria-hidden="true">
+                <span class="flow-connector"></span>
+            </div>
+
+            <ol class="grid-route-row grid-route-row--return" aria-label="Dağıtım merkezinden eve alçak gerilim yolu">
+                <li class="grid-route-step">
+                    <article class="grid-equipment medium-voltage-card">
+                        <span class="grid-step-number">09</span>
+                        <svg class="grid-equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <path d="M15 57h66M22 57V34M48 57V25M74 57V34M18 34h60M25 34V22M48 25V15M71 34V22"></path>
+                            <path d="M25 22H9M71 22h16M48 15 36 7M48 15 60 7M35 57l-7 12M61 57l7 12M20 69h56"></path>
+                            <path d="M10 19v6M86 19v6M35 7h26"></path>
+                        </svg>
+                        <span class="grid-equipment-type">BÖLGESEL DAĞITIM</span>
+                        <h3>Orta gerilim hattı</h3>
+                        <p>DM'den mahalle ve trafo merkezlerine enerji taşır.</p>
+                        <span class="grid-level">Orta gerilim · OG</span>
+                    </article>
+                </li>
+                <li class="grid-route-connector flow-connector" aria-label="Orta gerilim bağlantısı">
+                    <span class="grid-connector-line" aria-hidden="true"></span>
+                    <span class="grid-connector-label">OG</span>
+                </li>
+                <li class="grid-route-step">
+                    <article class="grid-equipment local-transformer-card">
+                        <span class="grid-step-number">10</span>
+                        <svg class="grid-equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <path d="M48 9v11M48 56v10M30 20v36M66 20v36"></path>
+                            <path d="M30 24c-10 0-10 12 0 12s10 12 0 12M66 24c10 0 10 12 0 12s-10 12 0 12"></path>
+                            <path d="M21 20h54M21 56h54M27 66h42M35 66v6M61 66v6M18 72h60"></path>
+                        </svg>
+                        <span class="grid-equipment-type">YEREL TRAFO</span>
+                        <h3>Trafo merkezi</h3>
+                        <p>Orta gerilimi tüketicilerin kullanacağı alçak gerilime dönüştürür.</p>
+                        <span class="grid-level">OG → AG</span>
+                    </article>
+                </li>
+                <li class="grid-route-connector flow-connector" aria-label="Alçak gerilim bağlantısı">
+                    <span class="grid-connector-line" aria-hidden="true"></span>
+                    <span class="grid-connector-label">AG</span>
+                </li>
+                <li class="grid-route-step">
+                    <article class="grid-equipment low-voltage-card">
+                        <span class="grid-step-number">11</span>
+                        <svg class="grid-equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <path d="M14 56h68M25 56V31M71 56V31M18 31h60M31 31v-9M65 31v-9M20 22H6M76 22h14"></path>
+                            <path d="M9 19v6M87 19v6M31 22h34M25 56l-7 13M71 56l7 13M14 69h68"></path>
+                            <path d="M42 22v8M48 22v8M54 22v8"></path>
+                        </svg>
+                        <span class="grid-equipment-type">SON KULLANICI HATTI</span>
+                        <h3>Alçak gerilim hattı</h3>
+                        <p>Trafo merkezinden bina bağlantılarına enerji ulaştırır.</p>
+                        <span class="grid-level">Alçak gerilim · AG</span>
+                    </article>
+                </li>
+                <li class="grid-route-connector flow-connector" aria-label="Bina servis bağlantısı">
+                    <span class="grid-connector-line" aria-hidden="true"></span>
+                    <span class="grid-connector-label">SERVİS</span>
+                </li>
+                <li class="grid-route-step">
+                    <article class="grid-equipment home-connection-card">
+                        <span class="grid-step-number">12</span>
+                        <svg class="grid-equipment-icon" viewBox="0 0 96 76" aria-hidden="true">
+                            <path d="m13 34 35-25 35 25"></path>
+                            <path d="M21 30v36h54V30M41 66V47h14v19"></path>
+                            <path d="M30 40h8v8h-8zM58 40h8v8h-8z"></path>
+                            <path d="M5 19h18M73 13h18M10 15v8M86 9v8"></path>
+                            <path d="M14 19h10M78 13h10"></path>
+                        </svg>
+                        <span class="grid-equipment-type">TÜKETİM NOKTASI</span>
+                        <h3>Evin şebeke girişi</h3>
+                        <p>Servis hattı sayaca ve bina elektrik panosuna bağlanır.</p>
+                        <span class="grid-level home-level">Sayaç → bina panosu</span>
+                    </article>
+                </li>
+            </ol>
+
+            <div class="grid-endpoint" aria-label="Enerji akışının tüketim noktasında sonu">
+                <span class="grid-endpoint-dot" aria-hidden="true"></span>
+                <span>Enerji, tüketim noktasına ulaştı</span>
+                <span class="grid-endpoint-caption">Üretimden eve tam şebeke yolu</span>
+            </div>
+            <p class="model-note">YG, OG ve AG ifadeleri gerilim sınıflarını gösterir. Gerçek hat güzergâhı, gerilim seviyeleri ve trafo düzeni şebeke projesine göre değişir; bu çizim ölçekli bir harita değildir.</p>
+        </section>
+
+        <section class="consumer-distribution" aria-labelledby="consumer-distribution-title">
+            <div class="consumer-distribution-heading">
+                <div>
+                    <p class="eyebrow">AŞAMA 04 · TÜKETİM DALLARI</p>
+                    <h2 id="consumer-distribution-title">Dağıtım panosundan tüketim noktalarına</h2>
+                    <p class="chain-intro">Her tüketim noktası şebekeye ayrı bir dal olarak bağlanır. Üretim yetmiyorsa mevcut güç, tüketim noktalarına talep oranında paylaştırılır.</p>
+                </div>
+                <span class="consumer-distribution-badge"><i aria-hidden="true"></i> Canlı dallanma</span>
+            </div>
+
+            <div class="consumer-network" aria-label="Dağıtım panosundan seçili tüketim noktalarına dallanan şebeke">
+                <div class="consumer-distribution-source flow-connector" id="consumer-source" data-state="idle">
+                    <span class="consumer-source-line" aria-hidden="true"></span>
+                    <span class="consumer-source-node" aria-hidden="true"></span>
+                    <strong>Trafo merkezi · alçak gerilim dağıtım panosu</strong>
+                </div>
+                <div class="consumer-bus" id="consumer-bus">
+                    <span class="consumer-bus-rail" aria-hidden="true"></span>
+                    <div class="consumer-branches" id="consumer-branches" role="list" aria-live="polite"></div>
+                </div>
+            </div>
+            <div class="network-equipment-limits">
+                <article class="capacity-card" id="transformer-capacity-card" data-state="normal">
+                    <div class="capacity-card-heading">
+                        <div>
+                            <span class="capacity-kicker">DAĞITIM EKİPMANI</span>
+                            <h3>Trafo merkezi</h3>
+                        </div>
+                        <span class="capacity-status" id="transformer-capacity-status">Normal</span>
+                    </div>
+                    <label class="capacity-setting" for="transformer-capacity">
+                        <span>Örnek yük sınırı</span>
+                        <span class="capacity-input-wrap">
+                            <input id="transformer-capacity" type="number" min="0.1" max="1000" step="0.1" value="8" inputmode="decimal" aria-label="Trafo merkezi örnek yük sınırı, kW">
+                            <span>kW</span>
+                        </span>
+                    </label>
+                    <div class="capacity-meter" role="progressbar" aria-label="Trafo merkezi yüklenmesi" aria-valuemin="0" aria-valuemax="100">
+                        <span id="transformer-capacity-meter"></span>
+                    </div>
+                    <p class="capacity-reading" id="transformer-capacity-reading">—</p>
+                </article>
+                <article class="capacity-card" id="panel-capacity-card" data-state="normal">
+                    <div class="capacity-card-heading">
+                        <div>
+                            <span class="capacity-kicker">DAĞITIM EKİPMANI</span>
+                            <h3>Alçak gerilim panosu</h3>
+                        </div>
+                        <span class="capacity-status" id="panel-capacity-status">Normal</span>
+                    </div>
+                    <label class="capacity-setting" for="panel-capacity">
+                        <span>Örnek yük sınırı</span>
+                        <span class="capacity-input-wrap">
+                            <input id="panel-capacity" type="number" min="0.1" max="1000" step="0.1" value="6" inputmode="decimal" aria-label="Dağıtım panosu örnek yük sınırı, kW">
+                            <span>kW</span>
+                        </span>
+                    </label>
+                    <div class="capacity-meter" role="progressbar" aria-label="Dağıtım panosu yüklenmesi" aria-valuemin="0" aria-valuemax="100">
+                        <span id="panel-capacity-meter"></span>
+                    </div>
+                    <p class="capacity-reading" id="panel-capacity-reading">—</p>
+                </article>
+            </div>
+            <p class="consumer-distribution-summary" id="consumer-distribution-summary">Tüketim noktası ekleyerek yeni bir şebeke dalı oluştur.</p>
+            <p class="model-note">Limitler değiştirilebilir örnek kW değerleridir; gerçek ekipman seçimi veya elektrik tesisatı boyutlandırması değildir. Kısa devre, faz dengesi ve hat kayıpları bu basit modelde hesaplanmaz.</p>
+        </section>
+
+        <section class="flow-simulation" aria-labelledby="flow-simulation-title">
+            <div class="flow-simulation-heading">
+                <div>
+                    <p class="eyebrow">AŞAMA 05 · TOPLAM DENGE</p>
+                    <h2 id="flow-simulation-title">Üretim talebi karşılıyor mu?</h2>
+                    <p class="chain-intro">Noktalara girdiğin anlık güç değerlerini karşılaştır; enerji akışı ve karşılama oranı şemaya yansısın.</p>
+                </div>
+                <span class="flow-status" id="flow-status" data-state="balanced" aria-live="polite">
+                    <i aria-hidden="true"></i>
+                    <span id="flow-status-label">Akış bekleniyor</span>
+                </span>
+            </div>
+
+            <div class="flow-metrics" aria-label="Üretim ve tüketim sonuçları" aria-live="polite">
+                <article class="flow-metric">
+                    <span>Toplam üretim</span>
+                    <strong><span id="flow-production">—</span> <small>kW</small></strong>
+                </article>
+                <article class="flow-metric">
+                    <span>Toplam talep</span>
+                    <strong><span id="flow-demand">—</span> <small>kW</small></strong>
+                </article>
+                <article class="flow-metric">
+                    <span>Karşılama oranı</span>
+                    <strong id="flow-coverage">—</strong>
+                </article>
+            </div>
+            <p class="flow-explanation" id="flow-explanation">Akışı görmek için üretim ve tüketim noktalarına güç değeri gir.</p>
+            <p class="model-note">Basitleştirilmiş anlık güç karşılaştırmasıdır (kW); şebekeden enerji alımı, depolama ve hat kayıpları hesaba katılmaz. Gerilim düşümü, ayrı ve tahmini bir gösterge olarak hesaplanır; güç dengesiyle etkileşmez.</p>
+        </section>
+
+        <section class="equipment-limits" aria-labelledby="equipment-limits-title">
+            <div class="equipment-limits-heading">
+                <div>
+                    <p class="eyebrow">AŞAMA 06 · EKİPMAN SINIRLARI</p>
+                    <h2 id="equipment-limits-title">Ekipman yükü sınırlar içinde mi?</h2>
+                    <p class="chain-intro">Dağıtılan güç; örnek trafo, pano ve her tüketim dalı sınırıyla karşılaştırılır. Sınır aşıldığında yalnızca ilgili bölüm uyarı verir.</p>
+                </div>
+                <span class="limits-summary" id="limits-summary" data-state="normal" aria-live="polite">
+                    <i aria-hidden="true"></i>
+                    <span id="limits-summary-label">Sınırlar kontrol ediliyor</span>
+                </span>
+            </div>
+            <p class="model-note">Bu değerler yalnızca görsel simülasyon içindir. Gerçek ekipman boyutlandırması gerilim, akım, faz, güç faktörü, hat özellikleri ve ekipman etiket değerlerine göre yapılır.</p>
+        </section>
+
+        <section class="voltage-drop-stage" aria-labelledby="voltage-drop-title">
+            <div class="equipment-limits-heading">
+                <div>
+                    <p class="eyebrow">AŞAMA 07 · GERİLİM DÜŞÜMÜ</p>
+                    <h2 id="voltage-drop-title">Hat uzunluğu ve kablo, gerilimi nasıl etkiliyor?</h2>
+                    <p class="chain-intro">Her tüketim dalında hat mesafesini ve bakır iletken kesitini değiştir; tahmini gerilim düşümünü ve tüketici ucundaki gerilimi gözlemle.</p>
+                </div>
+                <span class="voltage-drop-summary" id="voltage-drop-summary" data-state="idle" aria-live="polite">
+                    <i aria-hidden="true"></i>
+                    <span id="voltage-drop-summary-label">Tüketim dalı bekleniyor</span>
+                </span>
+            </div>
+            <div class="voltage-drop-formula" aria-label="Gerilim düşümü hesaplama varsayımları">
+                <span><strong>Model</strong> Tek faz · 230 V · güç faktörü 0,95</span>
+                <span><strong>Yaklaşık formül</strong> ΔV = 2 × L × I × ρ / S</span>
+                <span><strong>Bakır özdirenci</strong> ρ = 0,0175 Ω·mm²/m</span>
+            </div>
+            <p class="model-note">Hesap, her dalın talep gücünü kullanır; uç gerilim = 230 V − ΔV. %3 ve %5 değerleri yalnızca karşılaştırma amaçlı genel eşiklerdir, mevzuat uygunluğu veya tesisat tasarımı anlamına gelmez. Faz, sıcaklık, reaktans, bağlantılar ve gerçek yük profili bu basit modelde yoktur.</p>
+        </section>
+
+        <section class="protection-stage" aria-labelledby="protection-stage-title">
+            <div class="equipment-limits-heading">
+                <div>
+                    <p class="eyebrow">AŞAMA 08 · KORUMA VE ARIZA SENARYOLARI</p>
+                    <h2 id="protection-stage-title">Şalter aşırı akımda devreyi açıyor mu?</h2>
+                    <p class="chain-intro">Her tüketim dalına örnek bir koruma şalteri ekle. Normal çalışma, aşırı akım testi veya hat kesintisi seçerek dalın enerjisini ve toplam karşılamaya etkisini izle.</p>
+                </div>
+                <span class="protection-summary" id="protection-summary" data-state="idle" aria-live="polite">
+                    <i aria-hidden="true"></i>
+                    <span id="protection-summary-label">Koruma senaryosu bekleniyor</span>
+                </span>
+            </div>
+            <p class="model-note">Test senaryosunda örnek akım, seçilen şalter sınırının 1,5 katı kabul edilir. Şalter değerleri ve arıza testleri eğitim amaçlıdır; kısa devre, açma eğrisi, koruma koordinasyonu ve gerçek tesisat güvenliği modellenmez. Bu simülasyon tasarım veya işletme talimatı değildir.</p>
+        </section>
+
+        <section class="next-stage" aria-labelledby="next-stage-title">
+            <div class="next-stage-number" aria-hidden="true">09</div>
+            <div>
+                <p class="eyebrow">SONRAKİ GELİŞTİRME</p>
+                <h2 id="next-stage-title">Şebeke izleme ve olay kaydını ekleyelim</h2>
+                <p>Bir sonraki adımda akım, gerilim ve koruma durumlarını zaman çizelgesinde izleyip olay geçmişini karşılaştırabiliriz.</p>
+            </div>
+        </section>
+
+        <p class="page-footer"><a href="projeler.html">← Projelere dön</a></p>
+    </main>
+</body>
+</html>
